@@ -91,6 +91,7 @@ CSRF_FAILURE_TEMPLATE = """
 </html>
 """
 
+from django.http import HttpResponse, HttpResponseRedirect
 def csrf_failure(request, reason=""):
     """
     Default view used when request fails CSRF protection

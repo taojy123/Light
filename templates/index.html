@@ -1,1 +1,9 @@
 HELLO WORLD
+
+<form action="." method="post">
+    {% csrf_token %}
+    <input name="a" type="text" />
+    <input type="submit">
+    {{ a }}
+
+</form>

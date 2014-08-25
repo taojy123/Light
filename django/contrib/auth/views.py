@@ -9,7 +9,7 @@ from django.shortcuts import resolve_url
 from django.utils.encoding import force_bytes, force_text
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 # Avoid shadowing the login() and logout() views below.
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout, get_user_model
@@ -38,33 +38,6 @@ def login(request, template_name='registration/login.html',
             # Ensure the user-originating redirection url is safe.
             if not is_safe_url(url=redirect_to, host=request.get_host()):
                 redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
-
-
-#            # ====================== Online Detect =========================
-#            from intelic.builder.models import Online
-#            import datetime
-#            import pytz
-#            import uuid
-#            from django.http import HttpResponse
-#            user_key = request.session.get("user_key", str(uuid.uuid4()))
-#            request.session["user_key"] = user_key
-#            user = form.get_user()
-#            ol = Online.objects.filter(user=user)
-#            if ol:
-#                ol = ol[0]
-#            else:
-#                ol = Online()
-#                ol.user = user
-#                ol.save()
-#
-#            if ol.can_login:
-#                ol.user_key = user_key
-#                ol.time = datetime.datetime.now(pytz.utc)
-#                ol.save()
-#            else:
-#                return HttpResponse("<script>alert('This user is already logged in');window.location='/'</script>")
-#            # ===============================================================
-
 
             # Okay, security check complete. Log the user in.
             auth_login(request, form.get_user())
