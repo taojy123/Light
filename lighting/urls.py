@@ -15,6 +15,11 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     ('^$', index),
     ('^index/$', index),
+
+    ('^query/$', query),
+
+
+
 )
 # This will work if DEBUG is True
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns

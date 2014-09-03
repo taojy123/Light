@@ -125,8 +125,9 @@ class Group(models.Model):
     objects = GroupManager()
 
     class Meta:
-        verbose_name = _('group')
-        verbose_name_plural = _('groups')
+        verbose_name = "分组信息" #_('group')
+        verbose_name_plural = "分组信息" #_('groups')
+
 
     def __str__(self):
         return self.name
@@ -455,6 +456,8 @@ class User(AbstractUser):
     """
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+        verbose_name = "用户信息"
+        verbose_name_plural = "用户信息"
 
 
     STATUS_CHOICES = (
