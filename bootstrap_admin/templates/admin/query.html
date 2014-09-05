@@ -1,132 +1,166 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/light_base.html" %}
 {% load i18n admin_static %}
 
-{% block extrastyle %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
-{% endblock %}
 
-{% block coltype %}colMS{% endblock %}
 
-{% block bodyclass %}dashboard{% endblock %}
+{% block main_content %}
 
-{% block breadcrumbs %}{% endblock %}
 
-{% block content_title %}{% endblock %}
+    <link href="/static/css/tablesorter/blue/style.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-1.10.2.js"></script>
+    <script src="/static/js/jquery.tablesorter.js"></script>
 
-{% block content %}
+    <h2>查询统计</h2>
 
-<div class="container-fluid">
-    <div class="row-fluid dashboard-tools">
-        <div class="span3 recent-actions">
-            <h2>潮州市防雷档案管理系统</h2>
-            <div class="well">
-                <ul class="action-list">
-                    <li>
-                        <a href="/">档案信息管理</a>
-                    </li>
-                    <li>
-                        <a href="/query/">查询统计</a>
-                    </li>
-                    <li>
-                        <a href="#">系统管理</a>
-                    </li>
-                </ul>
+<div id="filter">
+    <form class="form-horizontal">
+
+        {% for key in keys %}
+            <input type="hidden" name="keys" value="{{ key }}">
+        {% endfor %}
+        {% for condition in conditions %}
+            <input type="hidden" name="conditions" value="{{ condition }}">
+        {% endfor %}
+        {% for value in values %}
+            <input type="hidden" name="values" value="{{ value }}">
+        {% endfor %}
+
+        <div class="control-group">
+            <label class="control-label">筛选条件</label>
+            <div class="controls">
+                <select name="key" id="key">
+                    <option value="anum">档案号</option>
+                    <option value="rnum">检测报告编号</option>
+                    <option value="name">单位名称</option>
+                    <option value="address">单位地址</option>
+                    <option value="project_name">项目名称</option>
+                    <option value="project_address">项目地址</option>
+                    <option value="gps">GPS定位信息</option>
+                    <option value="time">检测时间</option>
+                    <option value="contact_department">联系部门</option>
+                    <option value="contact_person">联系人</option>
+                    <option value="contact_phone">联系电话</option>
+                    <option value="buildings">受检建（构）筑物名称及接地电阻</option>
+                    <option value="category">防雷类别</option>
+                    <option value="basis">检测依据</option>
+                    <option value="weather">天气状况</option>
+                    <option value="instrument_num">检测仪器及编号</option>
+                    <option value="conclusion">检测结论</option>
+                    <option value="validity">有效期</option>
+                    <option value="write_person">编制员</option>
+                    <option value="test_person">检测员</option>
+                    <option value="check_person">审核员</option>
+                    <option value="bill_person">计费员</option>
+                    <option value="bill_check">计费复核</option>
+                    <option value="amount">计费金额</option>
+                    <option value="approve_person">批准人</option>
+                    <option value="approve_time">批准日期</option>
+                </select>
+                <select name="condition" id="condition" style="width: 80px">
+                    <option value="==">包含</option>
+                    <option value="!=">不包含</option>
+                </select>
+                <input type="text" name="value" id="value" placeholder="输入查询关键词">
             </div>
         </div>
-        <div class="span9 app-list">
-            {% if app_list %}
-                <h2>档案信息管理</h2>
-                {% for app in app_list %}
-                    <table summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}" class="table table-striped table-bordered table-condensed">
-                        <thead>
-                          <tr>
-                            <th colspan="4">
-                                <h3>
-                                    <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
-                                        {% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}
-                                    </a>
-                                </h3>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                            {% for model in app.models %}
-                                <tr>
-                                {% if model.admin_url %}
-                                    <td class="model-name"><a href="{{ model.admin_url }}">{{ model.name }}</a></td>
-                                {% else %}
-                                    <td class="model-name">{{ model.name }}</td>
-                                {% endif %}
-
-                                <td class="search-in-this-model hidden-phone">{% if model.perms.change %}
-                                    <form class="form-search" method="get" action="{{ model.admin_url }}">
-                                      <div class="input-append">
-                                        <input type="text" name="q" size="16" id="prependedInput" class="search-query input-medium" placeholder='{% trans 'Search' %} "{{ model.name }}"'>
-                                        <button class="btn" type="submit"><i class="icon-search"></i></button>
-                                      </div>
-                                    </form>
-                                    {% endif %}</td>
-
-                                <td>{% if model.add_url %}
-                                        <a href="{{ model.add_url }}" class="btn btn-primary pull-right">{% trans 'Add' %}</a>
-                                    {% endif %}</td>
-                                <td>{% if model.admin_url %}
-                                        <a href="{{ model.admin_url }}" class="btn btn-info pull-right">{% trans 'Change' %}</a>
-                                    {% endif %}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% endfor %}
-            {% else %}
-                <p>{% trans "You don't have permission to edit anything." %}</p>
-            {% endif %}
-        </div>
-    </div>
-
-    {% if user.reg_req %}
-        <div>
-            <h4>Check Registration Request</h4>
-            <div class="well">
-                {% for u in user.reg_req %}
-                    <li style="height: 40px">
-                        <span>{{ u.username }}</span>
-                        <a class="btn btn-success" style="float: right" href="/auth/approve/?uid={{ u.id }}">Approve</a>
-                        <a class="btn btn-danger" style="float: right; margin-right: 10px" href="/auth/reject/?uid={{ u.id }}">Reject</a>
-                    </li>
-                {% endfor %}
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-primary" name="submit" value="search">查询</button>
+                <button type="submit" class="btn" name="submit" value="filter">在结果中筛选</button>
             </div>
         </div>
-    {% endif %}
+    </form>
 
 </div>
 
+<div id="table">
+    <table class="tablesorter">
+        <thead>
+        <tr>
+            <th >档案号</th>
+            <th >检测报告编号</th>
+            <th >单位名称</th>
+            <th >单位地址</th>
+            <th >项目名称</th>
+            <th >项目地址</th>
+{#            <th >GPS定位信息</th>#}
+{#            <th >检测时间</th>#}
+{#            <th >联系部门</th>#}
+{#            <th >联系人</th>#}
+{#            <th >联系电话</th>#}
+{#            <th >受检建（构）筑物名称及接地电阻</th>#}
+{#            <th >防雷类别</th>#}
+{#            <th >检测依据</th>#}
+{#            <th >天气状况</th>#}
+{#            <th >检测仪器及编号</th>#}
+{#            <th >检测结论</th>#}
+{#            <th >有效期</th>#}
+{#            <th >编制员</th>#}
+{#            <th >检测员</th>#}
+{#            <th >审核员</th>#}
+{#            <th >计费员</th>#}
+{#            <th >计费复核</th>#}
+{#            <th >计费金额</th>#}
+{#            <th >批准人</th>#}
+{#            <th >批准日期</th>#}
+            <th >操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in rs %}
+            <tr>
+                <td>{{ r.anum }}</td>
+                <td>{{ r.rnum }}</td>
+                <td>{{ r.name }}</td>
+                <td>{{ r.address }}</td>
+                <td>{{ r.project_name }}</td>
+                <td>{{ r.project_address }}</td>
+{#                <td>{{ r.gps }}</td>#}
+{#                <td>{{ r.time }}</td>#}
+{#                <td>{{ r.contact_department }}</td>#}
+{#                <td>{{ r.contact_person }}</td>#}
+{#                <td>{{ r.contact_phone }}</td>#}
+{#                <td>{{ r.buildings }}</td>#}
+{#                <td>{{ r.category }}</td>#}
+{#                <td>{{ r.basis }}</td>#}
+{#                <td>{{ r.weather }}</td>#}
+{#                <td>{{ r.instrument_num }}</td>#}
+{#                <td>{{ r.conclusion }}</td>#}
+{#                <td>{{ r.validity }}</td>#}
+{#                <td>{{ r.write_person }}</td>#}
+{#                <td>{{ r.test_person }}</td>#}
+{#                <td>{{ r.check_person }}</td>#}
+{#                <td>{{ r.bill_person }}</td>#}
+{#                <td>{{ r.bill_check }}</td>#}
+{#                <td>{{ r.amount }}</td>#}
+{#                <td>{{ r.approve_person }}</td>#}
+{#                <td>{{ r.approve_time }}</td>#}
+                <td>
+                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/">查看</a>
+                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/delete/">删除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+
+    $(".tablesorter").tablesorter({
+        widgets: ['zebra']
+    })
+
+    $(function(){
+
+        {% if value %}
+            $("#key").val("{{ key }}")
+            $("#condition").val("{{ condition }}")
+            $("#value").val("{{ value }}")
+        {% endif %}
+
+    })
+</script>
+
 {% endblock %}
-
-{% block js_footer %}
-    <script type="text/javascript">
-    (function ($) {
-        swap_containers = function(container){
-            container = $(container);
-            container.remove();
-            
-            $('.dashboard-tools').append(container.prop('outerHTML'));
-        }
-
-        swap_if_necessary = function(){
-            width = Math.max( $(window).innerWidth(), window.innerWidth)
-            if(width < '767' && $('.recent-actions').isBefore('.app-list')){
-                swap_containers('.recent-actions');
-            } 
-            else if(width > '767' && $('.recent-actions').isAfter('.app-list')){
-                swap_containers('.app-list');
-            }
-        }
-
-        $(window).resize(swap_if_necessary);
-        $(document).ready(swap_if_necessary);
-    })(django.jQuery);
-    </script>
-{% endblock js_footer %}

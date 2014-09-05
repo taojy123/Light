@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row-fluid dashboard-tools">
+        <div class="span3 recent-actions">
+            <h2>潮州市防雷档案管理系统</h2>
+            <div class="well">
+                <ul class="action-list">
+                    <li>
+                        <a href="/">档案信息管理</a>
+                    </li>
+                    <li>
+                        <a href="/query/">查询统计</a>
+                    </li>
+                    <li>
+                        <a href="#">系统管理</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9 app-list">
+            {% block main_content %}
+                main_content here
+            {% endblock %}
+        </div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}
+
+{% block js_footer %}
+    <script type="text/javascript">
+    (function ($) {
+        swap_containers = function(container){
+            container = $(container);
+            container.remove();
+
+            $('.dashboard-tools').append(container.prop('outerHTML'));
+        }
+
+        swap_if_necessary = function(){
+            width = Math.max( $(window).innerWidth(), window.innerWidth)
+            if(width < '767' && $('.recent-actions').isBefore('.app-list')){
+                swap_containers('.recent-actions');
+            }
+            else if(width > '767' && $('.recent-actions').isAfter('.app-list')){
+                swap_containers('.app-list');
+            }
+        }
+
+        $(window).resize(swap_if_necessary);
+        $(document).ready(swap_if_necessary);
+    })(django.jQuery);
+    </script>
+{% endblock js_footer %}

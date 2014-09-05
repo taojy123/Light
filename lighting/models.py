@@ -6,16 +6,16 @@ from django.db import models
 class Unit(models.Model):
 
     CATEGORY_CHOICES = (
-        ('1', "一类"),
-        ('2', "二类"),
-        ('3', "三类"),
+        (u'一类', u"一类"),
+        (u'二类', u"二类"),
+        (u'三类', u"三类"),
         )
 
     WEATHER_CHOICES = (
-        ('1', "晴"),
-        ('2', "多云"),
-        ('3', "阴"),
-        ('4', "雨"),
+        (u'晴', u"晴"),
+        (u'多云', u"多云"),
+        (u'阴', u"阴"),
+        (u'雨', u"雨"),
         )
 
     anum = models.CharField(max_length=255, verbose_name="档案号")
@@ -30,9 +30,9 @@ class Unit(models.Model):
     contact_person = models.CharField(max_length=255, verbose_name="联系人")
     contact_phone = models.CharField(max_length=255, verbose_name="联系电话")   # 只能数字
     buildings = models.CharField(max_length=255, verbose_name="受检建（构）筑物名称及接地电阻")    #可多个
-    category = models.CharField(max_length=255, verbose_name="防雷类别", default='1', choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=255, verbose_name="防雷类别", default=u'一类', choices=CATEGORY_CHOICES)
     basis = models.CharField(max_length=255, verbose_name="检测依据")    #可多个
-    weather = models.CharField(max_length=255, verbose_name="天气状况", default='1', choices=WEATHER_CHOICES)
+    weather = models.CharField(max_length=255, verbose_name="天气状况", default=u'晴', choices=WEATHER_CHOICES)
     instrument_num = models.CharField(max_length=255, verbose_name="检测仪器及编号")    #可多个
     conclusion = models.CharField(max_length=255, verbose_name="检测结论")
     validity = models.DateField(verbose_name="有效期")        #可选日期
