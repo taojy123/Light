@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.core import validators
+import re
 
 
 class Unit(models.Model):
@@ -18,7 +20,11 @@ class Unit(models.Model):
         (u'雨', u"雨"),
         )
 
-    anum = models.CharField(max_length=255, verbose_name="档案号")
+    anum = models.CharField(max_length=255, verbose_name="档案号",
+        validators=[
+            validators.RegexValidator(re.compile('^[1234567890\[\]]+$'), '只能为数字或包含[]', 'invalid')
+        ]
+    )
     rnum = models.CharField(max_length=255, verbose_name="检测报告编号")
     name = models.CharField(max_length=255, verbose_name="单位名称")
     address = models.CharField(max_length=255, verbose_name="单位地址")
@@ -53,5 +59,19 @@ class Unit(models.Model):
     def __unicode__(self):
         return self.anum + " " + self.name
 
+    @property
+    def is_1(self):
+        return "-1-" in self.rnum
 
+    @property
+    def is_2(self):
+        return "-2-" in self.rnum
+
+    @property
+    def is_3(self):
+        return "-3-" in self.rnum
+
+    @property
+    def is_4(self):
+        return "-4-" in self.rnum
 

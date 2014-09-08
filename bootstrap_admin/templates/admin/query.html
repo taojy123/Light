@@ -65,6 +65,25 @@
         </div>
         <div class="control-group">
             <div class="controls">
+                <label class="checkbox inline">
+                    <input type="checkbox" name="checkall" {% if checkall %}checked{% endif %} onclick="$('input[type=checkbox]').prop('checked', $(this).prop('checked'))" >全部
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_1" {% if check_1 %}checked{% endif %} >爆炸和火灾危险环境(新建)
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_2" {% if check_2 %}checked{% endif %} >爆炸和火灾危险环境(年检)
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_3" {% if check_3 %}checked{% endif %} >一般建筑场所(新建)
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_4" {% if check_4 %}checked{% endif %} >一般建筑场所(年检)
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
                 <button type="submit" class="btn btn-primary" name="submit" value="search">查询</button>
                 <button type="submit" class="btn" name="submit" value="filter">在结果中筛选</button>
             </div>
@@ -83,7 +102,7 @@
             <th >单位地址</th>
             <th >项目名称</th>
             <th >项目地址</th>
-{#            <th >GPS定位信息</th>#}
+            <th >GPS定位信息</th>
 {#            <th >检测时间</th>#}
 {#            <th >联系部门</th>#}
 {#            <th >联系人</th>#}
@@ -115,7 +134,7 @@
                 <td>{{ r.address }}</td>
                 <td>{{ r.project_name }}</td>
                 <td>{{ r.project_address }}</td>
-{#                <td>{{ r.gps }}</td>#}
+                <td><a href="/show_gps/?id={{ r.id }}" target="_blank">{{ r.gps }}</a></td>
 {#                <td>{{ r.time }}</td>#}
 {#                <td>{{ r.contact_department }}</td>#}
 {#                <td>{{ r.contact_person }}</td>#}
@@ -136,8 +155,8 @@
 {#                <td>{{ r.approve_person }}</td>#}
 {#                <td>{{ r.approve_time }}</td>#}
                 <td>
-                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/">查看</a>
-                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/delete/">删除</a>
+                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/" target="_blank">查看</a>
+                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/delete/" target="_blank">删除</a>
                 </td>
             </tr>
         {% endfor %}
@@ -159,6 +178,10 @@
             $("#condition").val("{{ condition }}")
             $("#value").val("{{ value }}")
         {% endif %}
+
+    $("[name^='check_']").click(function(){
+        $("[name='checkall']").prop("checked", false)
+    })
 
     })
 </script>

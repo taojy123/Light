@@ -175,6 +175,9 @@
 
 {% block js_footer %}
     <script type="text/javascript">
+{#    if ($(".active").html() == "单位信息"){#}
+{#        top.location.href = "/query/";#}
+{#    }#}
     (function ($) {
         fix_positions_on_menu = function (){
           width = Math.max( $(window).innerWidth(), window.innerWidth);
