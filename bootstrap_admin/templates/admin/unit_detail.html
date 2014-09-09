@@ -1,0 +1,305 @@
+{% extends "admin/light_base.html" %}
+{% load i18n admin_static %}
+
+
+
+{% block main_content %}
+
+    <h2>{{ unit.name }} 单位信息</h2>
+
+    <div id="content-main" style="margin-top: -5px">
+
+        <form class="form-horizontal well">
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >档案号:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.anum }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >检测报告编号:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.rnum }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >单位名称:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.name }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >单位地址:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.address }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >项目名称:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.project_name }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >项目地址:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.project_address }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >GPS定位信息:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.gps }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >检测时间:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.time|date:"Y-m-d" }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >联系部门:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.contact_department }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >联系人:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.contact_person }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >联系电话:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.contact_phone }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >受检建（构）筑物名称及接地电阻:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.buildings }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >防雷类别:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.category }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >检测依据:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.basis }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >天气状况:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.weather }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >检测仪器及编号:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.instrument_num }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >检测结论:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.conclusion }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >有效期:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.validity|date:"Y-m-d" }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >编制员:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.write_person }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >检测员:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.test_person }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >审核员:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.check_person }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >计费员:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.bill_person }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >计费复核:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.bill_check }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >计费金额:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.amount }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >批准人:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.approve_person }}">
+                </div>
+            </div>
+
+
+            <div class="control-group  field-anum">
+                <div class="control-label">
+                    <label class="required" >批准日期:</label>
+                </div>
+                <div class="controls">
+                    <input class="vTextField span8" type="text"  value="{{ r.approve_time|date:"Y-m-d" }}">
+                </div>
+            </div>
+
+
+
+
+
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+<script>
+
+    $(".tablesorter").tablesorter({
+        widgets: ['zebra']
+    })
+
+    $(function(){
+
+        {% if value %}
+            $("#key").val("{{ key }}")
+            $("#condition").val("{{ condition }}")
+            $("#value").val("{{ value }}")
+        {% endif %}
+
+    })
+</script>
+
+{% endblock %}

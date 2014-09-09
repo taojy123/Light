@@ -6,13 +6,11 @@
 {% block main_content %}
 
 
-    <link href="/static/css/tablesorter/blue/style.css" rel="stylesheet"/>
-    <script src="/static/js/jquery-1.10.2.js"></script>
-    <script src="/static/js/jquery.tablesorter.js"></script>
 
-    <h2>查询统计</h2>
+    <h2 style="display: inline">查询统计</h2>
+    <a style="margin-left: 20px" href="#" id="show_filter">查询选项</a>
 
-<div id="filter">
+<div id="filter" style="margin-top: 20px; display: none">
     <form class="form-horizontal">
 
         {% for key in keys %}
@@ -26,8 +24,8 @@
         {% endfor %}
 
         <div class="control-group">
-            <label class="control-label">筛选条件</label>
-            <div class="controls">
+            <label class="control-label" style="width: 75px;text-align: left;">筛选条件:</label>
+            <div class="controls" style="margin-left: 0px;">
                 <select name="key" id="key">
                     <option value="anum">档案号</option>
                     <option value="rnum">检测报告编号</option>
@@ -64,7 +62,7 @@
             </div>
         </div>
         <div class="control-group">
-            <div class="controls">
+            <div class="controls" style="margin-left: 0px;">
                 <label class="checkbox inline">
                     <input type="checkbox" name="checkall" {% if checkall %}checked{% endif %} onclick="$('input[type=checkbox]').prop('checked', $(this).prop('checked'))" >全部
                 </label>
@@ -83,9 +81,10 @@
             </div>
         </div>
         <div class="control-group">
-            <div class="controls">
+            <div class="controls" style="margin-left: 0px;">
                 <button type="submit" class="btn btn-primary" name="submit" value="search">查询</button>
-                <button type="submit" class="btn" name="submit" value="filter">在结果中筛选</button>
+                <button type="submit" class="btn btn-warning" name="submit" value="filter">在结果中筛选</button>
+                <button type="submit" class="btn" name="submit" value="output">导出结果</button>
             </div>
         </div>
     </form>
@@ -134,7 +133,7 @@
                 <td>{{ r.address }}</td>
                 <td>{{ r.project_name }}</td>
                 <td>{{ r.project_address }}</td>
-                <td><a href="/show_gps/?id={{ r.id }}" target="_blank">{{ r.gps }}</a></td>
+                <td><a href="/show_gps/?id={{ r.id }}" target="_blank" title="点击在地图上显示">{{ r.gps }}</a></td>
 {#                <td>{{ r.time }}</td>#}
 {#                <td>{{ r.contact_department }}</td>#}
 {#                <td>{{ r.contact_person }}</td>#}
@@ -155,8 +154,7 @@
 {#                <td>{{ r.approve_person }}</td>#}
 {#                <td>{{ r.approve_time }}</td>#}
                 <td>
-                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/" target="_blank">查看</a>
-                    <a class="btn" href="/admin/lighting/unit/{{ r.id }}/delete/" target="_blank">删除</a>
+                    <a class="btn" href="/unit_detail?id={{ r.id }}" >查看</a>
                 </td>
             </tr>
         {% endfor %}
@@ -165,25 +163,45 @@
 </div>
 
 
-<script>
-
-    $(".tablesorter").tablesorter({
-        widgets: ['zebra']
-    })
-
-    $(function(){
-
-        {% if value %}
-            $("#key").val("{{ key }}")
-            $("#condition").val("{{ condition }}")
-            $("#value").val("{{ value }}")
-        {% endif %}
-
-    $("[name^='check_']").click(function(){
-        $("[name='checkall']").prop("checked", false)
-    })
-
-    })
-</script>
 
 {% endblock %}
+
+
+{% block js_footer %}
+
+    <link href="/static/css/tablesorter/blue/style.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-1.10.2.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.tablesorter.js"></script>
+    <script>
+
+        $(".tablesorter").tablesorter({
+            widgets: ['zebra']
+        });
+
+        if($.cookie("show_filter") == "true"){
+            $("#filter").show()
+        }
+
+        $("#show_filter").click(function(){
+            $("#filter").toggle()
+            var show_filter = $("#filter").is(":visible")
+            $.cookie("show_filter", show_filter)
+        });
+
+        $(function(){
+
+            {% if value %}
+                $("#key").val("{{ key }}")
+                $("#condition").val("{{ condition }}")
+                $("#value").val("{{ value }}")
+            {% endif %}
+
+            $("[name^='check_']").click(function(){
+                $("[name='checkall']").prop("checked", false)
+            })
+
+        })
+    </script>
+
+{% endblock js_footer %}

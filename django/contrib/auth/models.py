@@ -468,6 +468,20 @@ class User(AbstractUser):
 
     status = models.CharField(max_length=255, verbose_name="身份", default='3', choices=STATUS_CHOICES)
 
+#    def save(self, *args, **kw):
+#        super(User, self).save(*args, **kw)
+#        group = Group.objects.get(naem=self.status)
+#        self.groups.clear()
+#        self.groups.add(group)
+#        while True:
+#            uid = int(get_random_string(6, "0123456789"))
+#            if not User.objects.filter(id=uid):
+#                self.id = uid
+#                break
+#        return  super(User, self).save(*args, **kw)
+
+
+
 
 
 

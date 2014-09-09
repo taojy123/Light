@@ -1,4 +1,4 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/light_base.html" %}
 {% load i18n admin_static admin_modify %}
 {% load admin_urls %}
 
@@ -34,29 +34,32 @@
 {% endblock %}
 {% endif %}
 
-{% block content %}
-<div id="content-main">
+{% block main_content %}
+
+    <h2>数据新增/修改</h2>
+
+    <div id="content-main" style="margin-top: -5px">
     {% block object-tools %}
-        {% if change %}
-            {% if not is_popup %}
-              <ul class="object-tools">
-                {% block object-tools-items %}
-                <li>
-                    <a href="{% url opts|admin_urlname:'history' original.pk|admin_urlquote %}" class="btn historylink">
-                        {% trans "History" %}
-                    </a>
-                </li>
-                {% if has_absolute_url %}
-                    <li>
-                        <a href="{% url 'admin:view_on_site' content_type_id original.pk %}" class="btn btn-info viewsitelink">
-                            {% trans "View on site" %}
-                        </a>
-                    </li>
-                {% endif%}
-                {% endblock %}
-              </ul>
-            {% endif %}
-        {% endif %}
+{#        {% if change %}#}
+{#            {% if not is_popup %}#}
+{#              <ul class="object-tools">#}
+{#                {% block object-tools-items %}#}
+{#                <li>#}
+{#                    <a href="{% url opts|admin_urlname:'history' original.pk|admin_urlquote %}" class="btn historylink">#}
+{#                        {% trans "History" %}#}
+{#                    </a>#}
+{#                </li>#}
+{#                {% if has_absolute_url %}#}
+{#                    <li>#}
+{#                        <a href="{% url 'admin:view_on_site' content_type_id original.pk %}" class="btn btn-info viewsitelink">#}
+{#                            {% trans "View on site" %}#}
+{#                        </a>#}
+{#                    </li>#}
+{#                {% endif%}#}
+{#                {% endblock %}#}
+{#              </ul>#}
+{#            {% endif %}#}
+{#        {% endif %}#}
     {% endblock %}
     <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" class="form-horizontal well">{% csrf_token %}{% block form_top %}{% endblock %}
 
@@ -65,7 +68,7 @@
     {% if errors %}
         <p class="errornote alert alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
-            {% blocktrans count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
+            {% blocktrans count counter=errors|length %}请修正下列错误{% plural %}请修正下列错误{% endblocktrans %}
             {{ adminform.form.non_field_errors }}
         </p>
     {% endif %}

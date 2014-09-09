@@ -22,7 +22,7 @@ class Unit(models.Model):
 
     anum = models.CharField(max_length=255, verbose_name="档案号",
         validators=[
-            validators.RegexValidator(re.compile('^[1234567890\[\]]+$'), '只能为数字或包含[]', 'invalid')
+            validators.RegexValidator(re.compile('^[1234567890\[\]]+$'), '档案号只能为数字或包含[]', 'invalid')
         ]
     )
     rnum = models.CharField(max_length=255, verbose_name="检测报告编号")
@@ -34,7 +34,11 @@ class Unit(models.Model):
     time = models.DateField(verbose_name="检测时间")        #可选日期
     contact_department = models.CharField(max_length=255, verbose_name="联系部门", blank=True , null=True)
     contact_person = models.CharField(max_length=255, verbose_name="联系人")
-    contact_phone = models.CharField(max_length=255, verbose_name="联系电话")   # 只能数字
+    contact_phone = models.CharField(max_length=255, verbose_name="联系电话",
+        validators=[
+            validators.RegexValidator(re.compile('^[1234567890]+$'), '联系电话只能填写数字', 'invalid')
+        ]
+    )   # 只能数字
     buildings = models.CharField(max_length=255, verbose_name="受检建（构）筑物名称及接地电阻")    #可多个
     category = models.CharField(max_length=255, verbose_name="防雷类别", default=u'一类', choices=CATEGORY_CHOICES)
     basis = models.CharField(max_length=255, verbose_name="检测依据")    #可多个
@@ -43,7 +47,11 @@ class Unit(models.Model):
     conclusion = models.CharField(max_length=255, verbose_name="检测结论")
     validity = models.DateField(verbose_name="有效期")        #可选日期
     write_person = models.CharField(max_length=255, verbose_name="编制员")
-    test_person = models.CharField(max_length=255, verbose_name="检测员")     #两名以上
+    test_person = models.CharField(max_length=255, verbose_name="检测员",
+        validators=[
+            validators.RegexValidator(re.compile('^.+ .+$'), '需两名以上检测员,姓名间以空格分隔', 'invalid')
+        ]
+    )     #两名以上
     check_person = models.CharField(max_length=255, verbose_name="审核员")
     bill_person = models.CharField(max_length=255, verbose_name="计费员")
     bill_check = models.CharField(max_length=255, verbose_name="计费复核")

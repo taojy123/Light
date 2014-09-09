@@ -1,4 +1,4 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/light_base.html" %}
 {% load i18n admin_static admin_list %}
 {% load admin_urls %}
 
@@ -55,22 +55,11 @@
 
 {% block coltype %}flex{% endblock %}
 
-{% block content %}
-  {% block object-tools %}
-    {% if has_add_permission %}
-      <ul class="object-tools pull-right">
-        {% block object-tools-items %}
-          <li>
-            <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="addlink btn btn-primary">
-              {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
-            </a>
-          </li>
-        {% endblock %}
-      </ul>
-      <script type="text/javascript">django.jQuery("ul.object-tools li a").addClass("btn");</script>
-    {% endif %}
-  {% endblock %}
-  <div id="content-main">
+{% block main_content %}
+
+    <h2>数据列表</h2>
+
+  <div id="content-main" style="margin-top: 35px">
     {% if cl.formset.errors %}
         <p class="errornote">
         {% blocktrans count cl.formset.errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
@@ -79,47 +68,47 @@
     {% endif %}
     <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
       <div class="navbar subnav">
-        <div class="navbar-inner">
-          <div class="container">
-            <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </a>
-            <a href="#" title="{{ cl.opts.verbose_name_plural|capfirst }}" class="brand"><i class="icon-th-list pull-left"></i></a>
-            {% if cl.date_hierarchy or cl.has_filters %}
-              <div class="nav-collapse collapse navbar-responsive-collapse pull-left" id="filters">
-                <div class="pull-right">
-                  <ul class="nav">
-                    <li class="dropdown">
-                      <a data-toggle="dropdown" class="dropdown-toggle dropdown-filters" href="#">
-                        {% trans 'Filter' %} <b class="caret"></b>
-                      </a>
-                      <ul class="dropdown-menu">
-                        {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
-                        {% if cl.date_hierarchy and cl.has_filters %}
-                          <li class="divider divider-date-hierarchy"></li>
-                        {% endif %}
-                        {% block filters %}
-                          {% if cl.has_filters %}
-                            <li class="nav-header">{% trans 'Filter' %} +</li>
-                            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
-                          {% endif %}
-                        {% endblock %}
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.nav-collapse -->
-            {% endif %}
-            {% block pagination %}{% pagination cl %}{% endblock %}
-            <div class="nav-collapse collapse navbar-responsive-collapse">
-              <div class="pull-right">
-                {% block search %}{% search_form cl %}{% endblock %}
-              </div>
-            </div><!-- /.nav-collapse -->
-          </div>
-        </div><!-- /navbar-inner -->
+{#        <div class="navbar-inner">#}
+{#          <div class="container">#}
+{#            <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">#}
+{#              <span class="icon-bar"></span>#}
+{#              <span class="icon-bar"></span>#}
+{#              <span class="icon-bar"></span>#}
+{#            </a>#}
+{#            <a href="#" title="{{ cl.opts.verbose_name_plural|capfirst }}" class="brand"><i class="icon-th-list pull-left"></i></a>#}
+{#            {% if cl.date_hierarchy or cl.has_filters %}#}
+{#              <div class="nav-collapse collapse navbar-responsive-collapse pull-left" id="filters">#}
+{#                <div class="pull-right">#}
+{#                  <ul class="nav">#}
+{#                    <li class="dropdown">#}
+{#                      <a data-toggle="dropdown" class="dropdown-toggle dropdown-filters" href="#">#}
+{#                        {% trans 'Filter' %} <b class="caret"></b>#}
+{#                      </a>#}
+{#                      <ul class="dropdown-menu">#}
+{#                        {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}#}
+{#                        {% if cl.date_hierarchy and cl.has_filters %}#}
+{#                          <li class="divider divider-date-hierarchy"></li>#}
+{#                        {% endif %}#}
+{#                        {% block filters %}#}
+{#                          {% if cl.has_filters %}#}
+{#                            <li class="nav-header">{% trans 'Filter' %} +</li>#}
+{#                            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}#}
+{#                          {% endif %}#}
+{#                        {% endblock %}#}
+{#                      </ul>#}
+{#                    </li>#}
+{#                  </ul>#}
+{#                </div>#}
+{#              </div><!-- /.nav-collapse -->#}
+{#            {% endif %}#}
+{#            {% block pagination %}{% pagination cl %}{% endblock %}#}
+{#            <div class="nav-collapse collapse navbar-responsive-collapse">#}
+{#              <div class="pull-right">#}
+{#                {% block search %}{% search_form cl %}{% endblock %}#}
+{#              </div>#}
+{#            </div><!-- /.nav-collapse -->#}
+{#          </div>#}
+{#        </div><!-- /navbar-inner -->#}
       </div>
       <form id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} {% if action_form and actions_on_top and cl.full_result_count %}class="with-top-actions"{% endif %}>{% csrf_token %}
           {% if cl.formset %}

@@ -18,6 +18,9 @@ urlpatterns = patterns('',
 
     ('^query/$', query),
     ('^show_gps/$', show_gps),
+    ('^unit_detail/$', unit_detail),
+    ('^management/$', management),
+    ('^input_unit/$', input_unit),
 
 
 

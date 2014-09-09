@@ -1,0 +1,33 @@
+{% extends "admin/light_base.html" %}
+{% load i18n admin_static %}
+
+
+{% block main_content %}
+
+    {% if True %}
+        <h2>档案信息管理</h2>
+
+        {% if user.status == "1" %}
+        <p>
+            <a href="/admin/auth/user/" class="btn btn-primary">用户权限及密码管理</a>
+        </p>
+
+        <p>
+            <a href="/backup/" class="btn btn-success">数据备份</a>
+        </p>
+        {% endif %}
+
+        <p>
+            <a href="/admin/password_change/" class="btn btn-warning">修改密码</a>
+        </p>
+
+        <p>
+            <a href="/admin/logout/" class="btn btn-danger">退出系统</a>
+        </p>
+
+    {% else %}
+        <p>你没有权限查看此页面内容，请联系管理员。</p>
+    {% endif %}
+
+
+{% endblock %}

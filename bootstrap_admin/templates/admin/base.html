@@ -42,7 +42,7 @@
 {#                                <i class="icon white user"></i>#}
 {#                                 @{% filter force_escape %}{% firstof user.get_short_name|lower user.get_username|lower %}{% endfilter %}#}
 {#                                </a>#}
-                                <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></a>
+                                <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" onclick="$('.dropdown-menu').toggle()"><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {% block userlinks %}
                                         {% url 'django-admindocs-docroot' as docsroot %}
@@ -136,6 +136,7 @@
             'jQuery': jQuery
         }
     }
+    $(".breadcrumb").hide()
     </script>
     <script type="text/javascript" src="{% static "admin/js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="{% static "admin/js/commons.js" %}"></script>
