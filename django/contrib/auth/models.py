@@ -468,6 +468,11 @@ class User(AbstractUser):
 
     status = models.CharField(max_length=255, verbose_name="身份", default='3', choices=STATUS_CHOICES)
 
+    @property
+    def reminds(self):
+        from lighting.models import Remind
+        return Remind.objects.filter(is_show=True)
+
 #    def save(self, *args, **kw):
 #        super(User, self).save(*args, **kw)
 #        group = Group.objects.get(naem=self.status)

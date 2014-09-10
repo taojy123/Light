@@ -4,14 +4,13 @@
 
 {% block main_content %}
 
-    {% if app_list %}
         <h2>档案信息管理</h2>
 
         <p>
             <a href="/admin/lighting/unit/add/" class="btn btn-success">被检单位信息录入</a>
         </p>
 
-        {% if user.status != "3" %}
+        {% if user.status == "1" or user.status == "2" %}
         <p>
             <a href="/admin/lighting/unit/" class="btn btn-primary">被检单位信息更改</a>
         </p>
@@ -21,58 +20,14 @@
             <a href="#" class="btn" onclick="$('#input_form').slideToggle()">被检单位信息导入</a>
 
         </p>
-        <form action="/input_unit/" method="post" enctype="multipart/form-data" id="input_form" style="display: none">
-            <input type="file" name="input_file" id="input_file">
-            <input type="button" value="提交" onclick="if(confirm('导入操作可能会覆盖现有的数据，确定要进行此操作?')){if($('#input_file').val()){$('#input_form').submit()}else{alert('请先选择要导入的数据文件');}}">
-        </form>
+            <div id="input_form" class="well" style="display: none">
+                <form action="/input_unit/" method="post" enctype="multipart/form-data" >
+                    <input type="file" name="input_file" id="input_file">
+                    <br/>
+                    <input type="button" value="提交" onclick="if(confirm('导入操作可能会覆盖现有的数据，确定要进行此操作?')){if($('#input_file').val()){$('#input_form').submit()}else{alert('请先选择要导入的数据文件');}}">
+                </form>
+            </div>
         {% endif %}
-
-{#        {% for app in app_list %}#}
-{#            <table summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}" class="table table-striped table-bordered table-condensed">#}
-{#                <thead>#}
-{#                <tr>#}
-{#                    <th colspan="4">#}
-{#                        <h3>#}
-{#                            <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">#}
-{#                                {% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}#}
-{#                            </a>#}
-{#                        </h3>#}
-{#                    </th>#}
-{#                </tr>#}
-{#                </thead>#}
-{##}
-{#                <tbody>#}
-{#                {% for model in app.models %}#}
-{#                    <tr>#}
-{#                        {% if model.admin_url %}#}
-{#                            <td class="model-name"><a href="{{ model.admin_url }}">{{ model.name }}</a></td>#}
-{#                        {% else %}#}
-{#                            <td class="model-name">{{ model.name }}</td>#}
-{#                        {% endif %}#}
-{##}
-{#                        <td class="search-in-this-model hidden-phone">{% if model.perms.change %}#}
-{#                            <form class="form-search" method="get" action="{{ model.admin_url }}">#}
-{#                                <div class="input-append">#}
-{#                                    <input type="text" name="q" size="16" id="prependedInput" class="search-query input-medium" placeholder='{% trans 'Search' %} "{{ model.name }}"'>#}
-{#                                    <button class="btn" type="submit"><i class="icon-search"></i></button>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        {% endif %}</td>#}
-{##}
-{#                        <td>{% if model.add_url %}#}
-{#                            <a href="{{ model.add_url }}" class="btn btn-primary pull-right">{% trans 'Add' %}</a>#}
-{#                        {% endif %}</td>#}
-{#                        <td>{% if model.admin_url %}#}
-{#                            <a href="{{ model.admin_url }}" class="btn btn-info pull-right">{% trans 'Change' %}</a>#}
-{#                        {% endif %}</td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#                </tbody>#}
-{#            </table>#}
-{#        {% endfor %}#}
-    {% else %}
-        <p>你没有权限查看此页面内容，请联系管理员。</p>
-    {% endif %}
 
 
 {% endblock %}

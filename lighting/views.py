@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.db.models import Q
 from models import *
+from shutil import copy
 import os
 import uuid
 import xlwt
@@ -246,3 +247,40 @@ def input_unit(request, **kw):
         unit.save()
     return HttpResponse("<script>alert('导入成功');top.location.href='/'</script>")
 
+
+@login_required
+def remind(request, **kw):
+    for unit in Unit.objects.all():
+        if Remind.objects.filter(unit=unit):
+            continue
+        if unit.is_expiring or unit.is_expired:
+            Remind(unit=unit).save()
+    for remind in Remind.objects.all():
+        if not (remind.unit.is_expiring or remind.unit.is_expired):
+            remind.delete()
+    rs = Remind.objects.order_by("unit__validity")
+    user = request.user
+    return render_to_response('admin/remind.html', locals())
+
+
+def remind_open(request, **kw):
+    id = request.REQUEST.get("id")
+    remind = Remind.objects.get(id=id)
+    remind.is_show = True
+    remind.save()
+    return HttpResponseRedirect("/remind/")
+
+
+
+def remind_close(request, **kw):
+    id = request.REQUEST.get("id")
+    remind = Remind.objects.get(id=id)
+    remind.is_show = False
+    remind.save()
+    return HttpResponseRedirect("/remind/")
+
+
+
+def backup(request, **kw):
+    copy("data.db", "static/data.db")
+    return HttpResponseRedirect("/static/data.db")

@@ -1,0 +1,89 @@
+{% extends "admin/light_base.html" %}
+{% load i18n admin_static %}
+
+
+
+{% block main_content %}
+
+
+
+    <h2>过期未检单位提醒</h2>
+
+
+
+<div id="table" >
+    <table class="tablesorter">
+        <thead>
+        <tr>
+            <th>档案号</th>
+            <th>检测报告编号</th>
+            <th>单位名称</th>
+            <th>单位地址</th>
+            <th>到期时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in rs %}
+            <tr>
+                <td><a href="/unit_detail?id={{ r.unit.id }}">{{ r.unit.anum }}</a></td>
+                <td>{{ r.unit.rnum }}</td>
+                <td>{{ r.unit.name }}</td>
+                <td>{{ r.unit.address }}</td>
+                <td {% if r.unit.is_expired %}style="color: red"{% else %}style="color: blue"{% endif %}>{{ r.unit.validity|date:"Y-m-d" }}</td>
+                <td>
+                    {% if r.is_show %}
+                        <a class="btn btn-danger btn-mini" href="/remind_close?id={{ r.id }}" >关闭提醒</a>
+                    {% else %}
+                        <a class="btn btn-primary btn-mini" href="/remind_open?id={{ r.id }}" >打开提醒</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block js_footer %}
+
+    <link href="/static/css/tablesorter/blue/style.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-1.10.2.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.tablesorter.js"></script>
+    <script>
+
+        $(".tablesorter").tablesorter({
+            widgets: ['zebra']
+        });
+
+        if($.cookie("show_filter") == "true"){
+            $("#filter").show()
+        }
+
+        $("#show_filter").click(function(){
+            $("#filter").toggle()
+            var show_filter = $("#filter").is(":visible")
+            $.cookie("show_filter", show_filter)
+        });
+
+        $(function(){
+
+            {% if value %}
+                $("#key").val("{{ key }}")
+                $("#condition").val("{{ condition }}")
+                $("#value").val("{{ value }}")
+            {% endif %}
+
+            $("[name^='check_']").click(function(){
+                $("[name='checkall']").prop("checked", false)
+            })
+
+        })
+    </script>
+
+{% endblock js_footer %}

@@ -38,10 +38,12 @@
                     {% if user.is_active and user.is_staff %}
                         <div id="user-tools" class="pull-right">
                             <div class="btn-group pull-right">
-{#                                <a href="{% if user.has_usable_password %}{% url user|user_admin_urlname:'change' user.pk|admin_urlquote %}{% else %}#{% endif %}" class="btn btn-primary">#}
-{#                                <i class="icon white user"></i>#}
-{#                                 @{% filter force_escape %}{% firstof user.get_short_name|lower user.get_username|lower %}{% endfilter %}#}
-{#                                </a>#}
+                                {% if user.status != 3 %}
+                                    <a class="btn btn-primary" href="/remind/">
+                                        提醒
+                                        <span class="badge badge-warning">{{ user.reminds.count }}</span>
+                                    </a>
+                                {% endif %}
                                 <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" onclick="$('.dropdown-menu').toggle()"><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {% block userlinks %}
@@ -130,13 +132,30 @@
 {% block js_footer_commons %}
     <script type="text/javascript" src="{% static "admin/js/jquery.min.js" %}"></script>
     <script type="text/javascript" src="{% static "admin/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/static/js/bootbox.js"></script>
     <script type="text/javascript">
-    if (!window.django) {
-        window.django = {
-            'jQuery': jQuery
+        if (!window.django) {
+            window.django = {
+                'jQuery': jQuery
+            }
         }
-    }
-    $(".breadcrumb").hide()
+
+        $(".breadcrumb").hide()
+
+        {% if user.status == "1" or user.status == "2" %}
+            $(function(){
+
+                if($.cookie("remind") == "true"){
+                    bootbox.alert("<p>注意,以下单位已过有效期或即将到期：</p>{% for r in user.reminds %}<p><a href='/unit_detail?id={{ r.unit.id }}' target='_blank'>{{ r.unit.anum }} / {{ r.unit.rnum }} / {{ r.unit.name }}</a></p>{% endfor %}")
+                }
+                $.cookie("remind", "false", {path: "/"})
+            })
+        {% endif %}
+
+
+
+
     </script>
     <script type="text/javascript" src="{% static "admin/js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="{% static "admin/js/commons.js" %}"></script>

@@ -21,6 +21,10 @@ urlpatterns = patterns('',
     ('^unit_detail/$', unit_detail),
     ('^management/$', management),
     ('^input_unit/$', input_unit),
+    ('^remind/$', remind),
+    ('^remind_open/$', remind_open),
+    ('^remind_close/$', remind_close),
+    ('^backup/$', backup),
 
 
 

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, QueryDict
+from django.shortcuts import render_to_response
 from django.template.response import TemplateResponse
 from django.utils.http import base36_to_int, is_safe_url, urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.translation import ugettext as _
@@ -42,7 +43,14 @@ def login(request, template_name='registration/login.html',
             # Okay, security check complete. Log the user in.
             auth_login(request, form.get_user())
 
-            return HttpResponseRedirect(redirect_to)
+            rp = HttpResponseRedirect(redirect_to)
+
+            from lighting.models import Remind
+            if Remind.objects.filter(is_show=True):
+                rp.set_cookie("remind", "true")
+            else:
+                rp.set_cookie("remind", "false")
+            return rp
     else:
         form = authentication_form(request)
 

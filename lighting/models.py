@@ -3,6 +3,7 @@
 from django.db import models
 from django.core import validators
 import re
+import datetime
 
 
 class Unit(models.Model):
@@ -45,7 +46,7 @@ class Unit(models.Model):
     weather = models.CharField(max_length=255, verbose_name="天气状况", default=u'晴', choices=WEATHER_CHOICES)
     instrument_num = models.CharField(max_length=255, verbose_name="检测仪器及编号")    #可多个
     conclusion = models.CharField(max_length=255, verbose_name="检测结论")
-    validity = models.DateField(verbose_name="有效期")        #可选日期
+    validity = models.DateField(verbose_name="有效期", null=True, blank=True)        #可选日期
     write_person = models.CharField(max_length=255, verbose_name="编制员")
     test_person = models.CharField(max_length=255, verbose_name="检测员",
         validators=[
@@ -67,6 +68,22 @@ class Unit(models.Model):
     def __unicode__(self):
         return self.anum + " " + self.name
 
+    def save(self, *args, **kw):
+        if not self.validity:
+            year = self.time.year
+            month = self.time.month
+            day = self.time.day
+            if self.is_1 or self.is_2:
+                if month > 6:
+                    month -= 6
+                    year += 1
+                else:
+                    month += 6
+            if self.is_3 or self.is_4:
+                year += 1
+            self.validity = datetime.date(year=year, month=month, day=day)
+        return super(Unit, self).save(*args, **kw)
+
     @property
     def is_1(self):
         return "-1-" in self.rnum
@@ -82,4 +99,22 @@ class Unit(models.Model):
     @property
     def is_4(self):
         return "-4-" in self.rnum
+
+    @property
+    def is_expiring(self):
+        today = datetime.date.today()
+        week_later = today + datetime.timedelta(days=7)
+        return week_later >= self.validity and not self.is_expired
+
+    @property
+    def is_expired(self):
+        today = datetime.date.today()
+        return today >= self.validity
+
+
+class Remind(models.Model):
+    unit = models.ForeignKey(Unit)
+    is_show = models.BooleanField(default=True)
+
+
 

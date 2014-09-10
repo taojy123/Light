@@ -10,7 +10,7 @@
     <h2 style="display: inline">查询统计</h2>
     <a style="margin-left: 20px" href="#" id="show_filter">查询选项</a>
 
-<div id="filter" style="margin-top: 20px; display: none">
+<div id="filter" class="well" style="margin-top: 20px; display: none" >
     <form class="form-horizontal">
 
         {% for key in keys %}
@@ -91,7 +91,7 @@
 
 </div>
 
-<div id="table">
+<div id="table" >
     <table class="tablesorter">
         <thead>
         <tr>
@@ -154,7 +154,7 @@
 {#                <td>{{ r.approve_person }}</td>#}
 {#                <td>{{ r.approve_time }}</td>#}
                 <td>
-                    <a class="btn" href="/unit_detail?id={{ r.id }}" >查看</a>
+                    <a class="btn btn-mini" href="/unit_detail?id={{ r.id }}" >查看</a>
                 </td>
             </tr>
         {% endfor %}
