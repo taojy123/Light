@@ -1,6 +1,9 @@
-from django.utils.six.moves import html_parser as _html_parser
 import re
 import sys
+try:
+    from django.utils.six.moves import html_parser as _html_parser
+except:
+    import HTMLParser as _html_parser
 
 current_version = sys.version_info
 

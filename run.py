@@ -3,6 +3,14 @@
 import os
 import sys
 import webbrowser
+
+import lighting.wsgi
+import lighting.urls
+import lighting.settings
+import lighting.models
+import lighting.views
+import HTMLParser
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lighting.settings")
 
 
