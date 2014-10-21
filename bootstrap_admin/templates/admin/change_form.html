@@ -66,11 +66,11 @@
     {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
     {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
     {% if errors %}
-        <p class="errornote alert alert-error fade in">
+        <!-- <p class="errornote alert alert-error fade in">
             <button data-dismiss="alert" class="close" type="button">×</button>
             {% blocktrans count counter=errors|length %}请修正下列错误{% plural %}请修正下列错误{% endblocktrans %}
             {{ adminform.form.non_field_errors }}
-        </p>
+        </p> -->
     {% endif %}
 
     {% block field_sets %}
@@ -100,3 +100,9 @@
     </form>
 </div>
 {% endblock %}
+
+
+
+{% block js_footer %}
+{% endblock js_footer %}
+

@@ -23,8 +23,10 @@ function quickElement() {
 
 // CalendarNamespace -- Provides a collection of HTML calendar-related helper functions
 var CalendarNamespace = {
-    monthsOfYear: gettext('January February March April May June July August September October November December').split(' '),
-    daysOfWeek: gettext('S M T W T F S').split(' '),
+    // monthsOfYear: gettext('January February March April May June July August September October November December').split(' '),
+    // daysOfWeek: gettext('S M T W T F S').split(' '),
+    monthsOfYear: gettext('一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月').split(' '),
+    daysOfWeek: gettext('日 一 二 三 四 五 六').split(' '),
     firstDayOfWeek: parseInt(get_format('FIRST_DAY_OF_WEEK')),
     isLeapYear: function(year) {
         return (((year % 4)==0) && ((year % 100)!=0) || ((year % 400)==0));

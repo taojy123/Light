@@ -158,7 +158,7 @@ var DateTimeShortcuts = {
         inp.parentNode.insertBefore(shortcuts_span, inp.nextSibling);
         var today_link = document.createElement('a');
         today_link.setAttribute('href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', 0);');
-        today_link.appendChild(document.createTextNode(gettext('Today')));
+        today_link.appendChild(document.createTextNode(gettext('今天')));
         var cal_link = document.createElement('a');
         cal_link.setAttribute('href', 'javascript:DateTimeShortcuts.openCalendar(' + num + ');');
         cal_link.id = DateTimeShortcuts.calendarLinkName + num;
@@ -215,16 +215,16 @@ var DateTimeShortcuts = {
         // calendar shortcuts
         var shortcuts = quickElement('div', cal_box, '');
         shortcuts.className = 'calendar-shortcuts';
-        quickElement('a', shortcuts, gettext('Yesterday'), 'href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', -1);');
+        quickElement('a', shortcuts, gettext('昨天'), 'href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', -1);');
         shortcuts.appendChild(document.createTextNode('\240|\240'));
-        quickElement('a', shortcuts, gettext('Today'), 'href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', 0);');
+        quickElement('a', shortcuts, gettext('今天'), 'href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', 0);');
         shortcuts.appendChild(document.createTextNode('\240|\240'));
-        quickElement('a', shortcuts, gettext('Tomorrow'), 'href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', +1);');
+        quickElement('a', shortcuts, gettext('明天'), 'href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', +1);');
         shortcuts.appendChild(document.createTextNode('\240|\240'));
 
         // cancel bar
         // var cancel_p = quickElement('p', cal_box, '');
-        cancel_a = quickElement('a', shortcuts, gettext('Cancel'), 'href', 'javascript:DateTimeShortcuts.dismissCalendar(' + num + ');');
+        cancel_a = quickElement('a', shortcuts, gettext('取消'), 'href', 'javascript:DateTimeShortcuts.dismissCalendar(' + num + ');');
         cancel_a.className = 'calendar-cancel';
         django.jQuery(document).bind('keyup', function(event) {
             if (event.which == 27) {

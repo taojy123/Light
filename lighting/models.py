@@ -46,7 +46,7 @@ class Unit(models.Model):
     weather = models.CharField(max_length=255, verbose_name="天气状况", default=u'晴', choices=WEATHER_CHOICES)
     instrument_num = models.CharField(max_length=255, verbose_name="检测仪器及编号")    #可多个
     conclusion = models.CharField(max_length=255, verbose_name="检测结论")
-    validity = models.DateField(verbose_name="有效期", null=True, blank=True)        #可选日期
+    validity = models.DateField(verbose_name="有效期")        #可选日期
     write_person = models.CharField(max_length=255, verbose_name="编制员")
     test_person = models.CharField(max_length=255, verbose_name="检测员",
         validators=[
@@ -115,6 +115,7 @@ class Unit(models.Model):
 class Remind(models.Model):
     unit = models.ForeignKey(Unit)
     is_show = models.BooleanField(default=True)
+    deleted = models.BooleanField(default=False)
 
 
 

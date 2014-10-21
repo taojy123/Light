@@ -50,7 +50,7 @@ class Field(object):
     # Add an 'invalid' entry to default_error_message if you want a specific
     # field error message not raised by the field validators.
     default_error_messages = {
-        'required': _('This field is required.'),
+        'required': u'*\u6b64\u9879\u5fc5\u586b',
     }
     empty_values = list(validators.EMPTY_VALUES)
 

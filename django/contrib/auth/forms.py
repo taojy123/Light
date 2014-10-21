@@ -71,21 +71,21 @@ class UserCreationForm(forms.ModelForm):
     password.
     """
     error_messages = {
-        'duplicate_username': _("A user with that username already exists."),
-        'password_mismatch': _("The two password fields didn't match."),
+        'duplicate_username': "x", #_("A user with that username already exists."),
+        'password_mismatch': "x", #_("The two password fields didn't match."),
     }
-    username = forms.RegexField(label=_("Username"), max_length=30,
+    username = forms.RegexField(label="用户名", max_length=30,
         regex=r'^[\w.@+-]+$',
-        help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
+        #help_text=_("Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."),
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")})
-    password1 = forms.CharField(label=_("Password"),
+    password1 = forms.CharField(label="密码",
         widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_("Password confirmation"),
+    password2 = forms.CharField(label="重复密码",
         widget=forms.PasswordInput,
-        help_text=_("Enter the same password as above, for verification."))
+        #help_text=_("Enter the same password as above, for verification.")
+        )
 
     class Meta:
         model = User
@@ -263,11 +263,11 @@ class SetPasswordForm(forms.Form):
     old password
     """
     error_messages = {
-        'password_mismatch': _("The two password fields didn't match."),
+        'password_mismatch': "x", #_("The two password fields didn't match."),
     }
-    new_password1 = forms.CharField(label=_("New password"),
+    new_password1 = forms.CharField(label=u'\u65b0\u5bc6\u7801',
                                     widget=forms.PasswordInput)
-    new_password2 = forms.CharField(label=_("New password confirmation"),
+    new_password2 = forms.CharField(label=u'\u91cd\u590d\u5bc6\u7801',
                                     widget=forms.PasswordInput)
 
     def __init__(self, user, *args, **kwargs):
@@ -298,10 +298,9 @@ class PasswordChangeForm(SetPasswordForm):
     their old password.
     """
     error_messages = dict(SetPasswordForm.error_messages, **{
-        'password_incorrect': _("Your old password was entered incorrectly. "
-                                "Please enter it again."),
+        'password_incorrect': "x", #_("Your old password was entered incorrectly. Please enter it again."),
     })
-    old_password = forms.CharField(label=_("Old password"),
+    old_password = forms.CharField(label=u'\u539f\u5bc6\u7801',
                                    widget=forms.PasswordInput)
 
     def clean_old_password(self):
@@ -327,7 +326,7 @@ class AdminPasswordChangeForm(forms.Form):
     A form used to change the password of a user in the admin interface.
     """
     error_messages = {
-        'password_mismatch': _("The two password fields didn't match."),
+        'password_mismatch': "x", #_("The two password fields didn't match."),
     }
     password1 = forms.CharField(label=_("Password"),
                                 widget=forms.PasswordInput)

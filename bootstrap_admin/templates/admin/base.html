@@ -8,6 +8,27 @@
 {% endblock css_commons %}
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap.min.css" %}" />
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap-responsive.min.css" %}" />
+<style type="text/css">
+#nav-menu-top-bar{
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#08c),to(#08c));
+    background-image: -webkit-linear-gradient(top,#08c,#08c);
+    background-image: -o-linear-gradient(top,#08c,#08B);
+    background-image: linear-gradient(to bottom,#08c,#08c);
+    border-color: #08c; 
+}
+#site-name{
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 30%;
+}
+.navbar-inverse {
+color: white;
+}
+.required{
+    font-weight: normal;
+}
+</style>
 
 {% block extrastyle %}{% endblock %}
 
@@ -147,7 +168,7 @@
             $(function(){
 
                 if($.cookie("remind") == "true"){
-                    bootbox.alert("<p>注意,以下单位已过有效期或即将到期：</p>{% for r in user.reminds %}<p><a href='/unit_detail?id={{ r.unit.id }}' target='_blank'>{{ r.unit.anum }} / {{ r.unit.rnum }} / {{ r.unit.name }}</a></p>{% endfor %}")
+                    bootbox.alert("<p style='color:red;font-size:25px;'>注意,以下单位已过有效期或即将到期：</p>{% for r in user.reminds %}<p><a href='/unit_detail?id={{ r.unit.id }}' target='_blank'>{{ r.unit.anum }} / {{ r.unit.rnum }} / {{ r.unit.name }}</a></p>{% endfor %}")
                 }
                 $.cookie("remind", "false", {path: "/"})
             })

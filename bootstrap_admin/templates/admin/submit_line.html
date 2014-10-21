@@ -3,24 +3,25 @@
     <div class="container">
         <div class="pull-left delete-link-box">
             {% if show_delete_link %}
-                <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">{% trans "Delete" %}</a>
+                <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">删除</a>
             {% endif %}
         </div>
         <div class="pull-right save-options-box">
             {% if show_save_and_continue %}
-                <input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" {{ onclick_attrib }} class="btn btn-primary"/>
+                <input type="submit" value="保存并继续编辑" name="_continue" {{ onclick_attrib }} class="btn btn-primary"/>
             {% endif %}
 
-            {% if show_save_as_new %}
-                <input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew" {{ onclick_attrib }} class="btn"/>
+            {% if show_delete_link %}
+                <input type="submit" value="另存为" name="_saveasnew" {{ onclick_attrib }} class="btn"/>
             {%endif%}
 
-            {% if show_save_and_add_another %}
-                <input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" {{ onclick_attrib }} class="btn"/>
-            {% endif %}
+
+<!--             {% if show_save_and_add_another %}
+                <input type="submit" value="保存并添加另一个" name="_addanother" {{ onclick_attrib }} class="btn"/>
+            {% endif %} -->
 
             {% if show_save %}
-                <input type="submit" value="{% trans 'Save' %}" name="_save" {{ onclick_attrib }} class="btn"/>
+                <input type="submit" value="保存" name="_save" {{ onclick_attrib }} class="btn"/>
             {% endif %}
         </div>
     </div>

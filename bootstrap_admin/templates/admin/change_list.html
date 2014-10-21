@@ -53,6 +53,8 @@
     {% endblock %}
 {% endif %}
 
+
+
 {% block coltype %}flex{% endblock %}
 
 {% block main_content %}
@@ -211,6 +213,7 @@
         $(window).resize(function(){
             fix_positions_on_menu();
         });
+        $(".alert-success").hide()
     })(django.jQuery);
     </script>
 {% endblock js_footer %}
