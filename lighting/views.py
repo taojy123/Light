@@ -156,6 +156,73 @@ def query(request, **kw):
     return render_to_response('admin/query.html', locals())
 
 
+@login_required
+def query2(request, **kw):
+    keys = request.REQUEST.getlist("keys")
+    conditions = request.REQUEST.getlist("conditions")
+    values = request.REQUEST.getlist("values")
+    submit = request.REQUEST.get("submit")
+
+    qs = Unit.objects.all()
+
+    if submit == "search":
+        keys = []
+        conditions = []
+        values = []
+
+    for i in range(len(values)):
+        key = keys[i]
+        condition = conditions[i]
+        value = values[i]
+        if key and value:
+            if condition == "==":
+                qs = qs.filter(**{str(key+"__icontains") : value})
+            elif condition == "!=":
+                qs = qs.exclude(**{key+"__icontains" : value})
+
+
+    key = request.REQUEST.get("key")
+    condition = request.REQUEST.get("condition")
+    value = request.REQUEST.get("value")
+
+    if submit == "output":
+        value = ""
+
+    if key and value:
+        if condition == "==":
+            qs = qs.filter(**{str(key+"__icontains") : value})
+        elif condition == "!=":
+            qs = qs.exclude(**{key+"__icontains" : value})
+        keys.append(key)
+        conditions.append(condition)
+        values.append(value)
+
+    checkall = request.REQUEST.get("checkall")
+    check_1 = request.REQUEST.get("check_1")
+    check_2 = request.REQUEST.get("check_2")
+    check_3 = request.REQUEST.get("check_3")
+    check_4 = request.REQUEST.get("check_4")
+    if not (check_1 or check_2 or check_3 or check_4):
+        checkall = "on"
+    rs = []
+    for r in qs.all():
+        flag = False
+        if checkall:
+            flag = True
+        if check_1 and r.is_1:
+            flag = True
+        if check_2 and r.is_2:
+            flag = True
+        if check_3 and r.is_3:
+            flag = True
+        if check_4 and r.is_4:
+            flag = True
+        if flag:
+            rs.append(r)
+
+    user = request.user
+    return render_to_response('admin/query2.html', locals())
+
 
 def show_gps(request, **kw):
     id = request.REQUEST.get("id")
@@ -258,26 +325,26 @@ def remind(request, **kw):
     for remind in Remind.objects.all():
         if not (remind.unit.is_expiring or remind.unit.is_expired):
             remind.delete()
-    rs = Remind.objects.order_by("unit__validity")
+    rs = Remind.objects.filter(deleted=False).order_by("unit__validity")
     user = request.user
     return render_to_response('admin/remind.html', locals())
 
 
-def remind_open(request, **kw):
-    id = request.REQUEST.get("id")
-    remind = Remind.objects.get(id=id)
-    remind.is_show = True
-    remind.save()
+def remind_action(request, **kw):
+    ids = request.REQUEST.getlist("ids")
+    action = request.REQUEST.get("action")
+    for id in ids:
+        remind = Remind.objects.get(id=id)
+        if action == "open":
+            remind.is_show = True
+        elif action == "close":
+            remind.is_show = False
+        elif action == "delete":
+            remind.is_show = False
+            remind.deleted = True
+        remind.save()
     return HttpResponseRedirect("/remind/")
 
-
-
-def remind_close(request, **kw):
-    id = request.REQUEST.get("id")
-    remind = Remind.objects.get(id=id)
-    remind.is_show = False
-    remind.save()
-    return HttpResponseRedirect("/remind/")
 
 
 

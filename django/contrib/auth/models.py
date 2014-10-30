@@ -471,7 +471,7 @@ class User(AbstractUser):
     @property
     def reminds(self):
         from lighting.models import Remind
-        return Remind.objects.filter(is_show=True)
+        return Remind.objects.filter(is_show=True, deleted=False)
 
     def save(self, *args, **kw):
         if User.objects.count() >= 5 and self.is_superuser == False:

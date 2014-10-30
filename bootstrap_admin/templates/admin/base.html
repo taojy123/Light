@@ -8,6 +8,20 @@
 {% endblock css_commons %}
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap.min.css" %}" />
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/bootstrap-responsive.min.css" %}" />
+
+{% block extrastyle %}{% endblock %}
+
+{% if LANGUAGE_BIDI %}
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />
+{% endif %}
+
+<script type="text/javascript">
+    window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";
+</script>
+
+{% block extrahead %}{% endblock %}
+
+
 <style type="text/css">
 #nav-menu-top-bar{
     background-image: -webkit-gradient(linear,0 0,0 100%,from(#08c),to(#08c));
@@ -30,17 +44,7 @@ color: white;
 }
 </style>
 
-{% block extrastyle %}{% endblock %}
 
-{% if LANGUAGE_BIDI %}
-    <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />
-{% endif %}
-
-<script type="text/javascript">
-    window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";
-</script>
-
-{% block extrahead %}{% endblock %}
 
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
 </head>
@@ -78,14 +82,14 @@ color: white;
                                             <li>
                                                 <a href="{% url 'admin:password_change' %}">
                                                     <i class="icon-pencil"></i>
-                                                    {% trans 'Change password' %}
+                                                    修改密码
                                                 </a>
                                             </li>
                                         {% endif %}
                                         <li>
                                             <a href="{% url 'admin:logout' %}">
                                                 <i class="icon-off"></i>
-                                                {% trans 'Log out' %}
+                                                退出系统
                                             </a>
                                         </li>
                                     {% endblock %}

@@ -46,7 +46,7 @@ def login(request, template_name='registration/login.html',
             rp = HttpResponseRedirect(redirect_to)
 
             from lighting.models import Remind
-            if Remind.objects.filter(is_show=True):
+            if Remind.objects.filter(is_show=True, deleted=False):
                 rp.set_cookie("remind", "true")
             else:
                 rp.set_cookie("remind", "false")

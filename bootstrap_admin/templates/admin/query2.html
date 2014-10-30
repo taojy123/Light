@@ -1,0 +1,206 @@
+{% extends "admin/light_base.html" %}
+{% load i18n admin_static %}
+
+
+
+{% block main_content %}
+
+
+
+    <h2 style="display: inline">被检单位信息更改</h2>
+    <a style="margin-left: 20px" href="#" id="show_filter">选项</a>
+
+<div id="filter" class="well" style="margin-top: 20px; display: none" >
+    <form class="form-horizontal">
+
+        {% for key in keys %}
+            <input type="hidden" name="keys" value="{{ key }}">
+        {% endfor %}
+        {% for condition in conditions %}
+            <input type="hidden" name="conditions" value="{{ condition }}">
+        {% endfor %}
+        {% for value in values %}
+            <input type="hidden" name="values" value="{{ value }}">
+        {% endfor %}
+
+        <div class="control-group">
+            <label class="control-label" style="width: 75px;text-align: left;">筛选条件:</label>
+            <div class="controls" style="margin-left: 0px;">
+                <select name="key" id="key">
+                    <option value="anum">档案号</option>
+                    <option value="rnum">检测报告编号</option>
+                    <option value="name">单位名称</option>
+                    <option value="address">单位地址</option>
+                    <option value="project_name">项目名称</option>
+                    <option value="project_address">项目地址</option>
+                    <option value="gps">GPS定位信息</option>
+                    <option value="time">检测时间</option>
+                    <option value="contact_department">联系部门</option>
+                    <option value="contact_person">联系人</option>
+                    <option value="contact_phone">联系电话</option>
+                    <option value="buildings">受检建（构）筑物名称及接地电阻</option>
+                    <option value="category">防雷类别</option>
+                    <option value="basis">检测依据</option>
+                    <option value="weather">天气状况</option>
+                    <option value="instrument_num">检测仪器及编号</option>
+                    <option value="conclusion">检测结论</option>
+                    <option value="validity">有效期</option>
+                    <option value="write_person">编制员</option>
+                    <option value="test_person">检测员</option>
+                    <option value="check_person">审核员</option>
+                    <option value="bill_person">计费员</option>
+                    <option value="bill_check">计费复核</option>
+                    <option value="amount">计费金额</option>
+                    <option value="approve_person">批准人</option>
+                    <option value="approve_time">批准日期</option>
+                </select>
+                <select name="condition" id="condition" style="width: 80px">
+                    <option value="==">包含</option>
+                    <option value="!=">不包含</option>
+                </select>
+                <input type="text" name="value" id="value" placeholder="输入查询关键词">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls" style="margin-left: 0px;">
+                <label class="checkbox inline">
+                    <input type="checkbox" name="checkall" {% if checkall %}checked{% endif %} onclick="$('input[type=checkbox]').prop('checked', $(this).prop('checked'))" >全部
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_1" {% if check_1 %}checked{% endif %} >爆炸和火灾危险环境(新建)
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_2" {% if check_2 %}checked{% endif %} >爆炸和火灾危险环境(年检)
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_3" {% if check_3 %}checked{% endif %} >一般建筑场所(新建)
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" name="check_4" {% if check_4 %}checked{% endif %} >一般建筑场所(年检)
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls" style="margin-left: 0px;">
+                <button type="submit" class="btn btn-primary" name="submit" value="search">查询</button>
+                <button type="submit" class="btn btn-warning" name="submit" value="filter">在结果中筛选</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div id="table" >
+    <table class="tablesorter">
+        <thead>
+        <tr>
+            <th >档案号</th>
+            <th >检测报告编号</th>
+            <th >单位名称</th>
+            <th >单位地址</th>
+            <th >项目名称</th>
+            <th >项目地址</th>
+            <th >GPS定位信息</th>
+{#            <th >检测时间</th>#}
+{#            <th >联系部门</th>#}
+{#            <th >联系人</th>#}
+{#            <th >联系电话</th>#}
+{#            <th >受检建（构）筑物名称及接地电阻</th>#}
+{#            <th >防雷类别</th>#}
+{#            <th >检测依据</th>#}
+{#            <th >天气状况</th>#}
+{#            <th >检测仪器及编号</th>#}
+{#            <th >检测结论</th>#}
+{#            <th >有效期</th>#}
+{#            <th >编制员</th>#}
+{#            <th >检测员</th>#}
+{#            <th >审核员</th>#}
+{#            <th >计费员</th>#}
+{#            <th >计费复核</th>#}
+{#            <th >计费金额</th>#}
+{#            <th >批准人</th>#}
+{#            <th >批准日期</th>#}
+            <th >操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in rs %}
+            <tr>
+                <td>{{ r.anum }}</td>
+                <td>{{ r.rnum }}</td>
+                <td>{{ r.name }}</td>
+                <td>{{ r.address }}</td>
+                <td>{{ r.project_name }}</td>
+                <td>{{ r.project_address }}</td>
+                <td><a href="/show_gps/?id={{ r.id }}" target="_blank" title="点击在地图上显示">{{ r.gps }}</a></td>
+{#                <td>{{ r.time }}</td>#}
+{#                <td>{{ r.contact_department }}</td>#}
+{#                <td>{{ r.contact_person }}</td>#}
+{#                <td>{{ r.contact_phone }}</td>#}
+{#                <td>{{ r.buildings }}</td>#}
+{#                <td>{{ r.category }}</td>#}
+{#                <td>{{ r.basis }}</td>#}
+{#                <td>{{ r.weather }}</td>#}
+{#                <td>{{ r.instrument_num }}</td>#}
+{#                <td>{{ r.conclusion }}</td>#}
+{#                <td>{{ r.validity }}</td>#}
+{#                <td>{{ r.write_person }}</td>#}
+{#                <td>{{ r.test_person }}</td>#}
+{#                <td>{{ r.check_person }}</td>#}
+{#                <td>{{ r.bill_person }}</td>#}
+{#                <td>{{ r.bill_check }}</td>#}
+{#                <td>{{ r.amount }}</td>#}
+{#                <td>{{ r.approve_person }}</td>#}
+{#                <td>{{ r.approve_time }}</td>#}
+                <td>
+                    <a class="btn btn-mini" href="/unit_detail?id={{ r.id }}" >查看</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block js_footer %}
+
+    <link href="/static/css/tablesorter/blue/style.css" rel="stylesheet"/>
+    <script src="/static/js/jquery-1.10.2.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.tablesorter.js"></script>
+    <script>
+
+        $(".tablesorter").tablesorter({
+            widgets: ['zebra']
+        });
+
+        if($.cookie("show_filter") == "true"){
+            $("#filter").show()
+        }
+
+        $("#show_filter").click(function(){
+            $("#filter").toggle()
+            var show_filter = $("#filter").is(":visible")
+            $.cookie("show_filter", show_filter)
+        });
+
+        $(function(){
+
+            {% if value %}
+                $("#key").val("{{ key }}")
+                $("#condition").val("{{ condition }}")
+                $("#value").val("{{ value }}")
+            {% endif %}
+
+            $("[name^='check_']").click(function(){
+                $("[name='checkall']").prop("checked", false)
+            })
+
+        })
+    </script>
+
+{% endblock js_footer %}

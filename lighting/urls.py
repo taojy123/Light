@@ -17,13 +17,13 @@ urlpatterns = patterns('',
     ('^index/$', index),
 
     ('^query/$', query),
+    ('^query2/$', query2),
     ('^show_gps/$', show_gps),
     ('^unit_detail/$', unit_detail),
     ('^management/$', management),
     ('^input_unit/$', input_unit),
     ('^remind/$', remind),
-    ('^remind_open/$', remind_open),
-    ('^remind_close/$', remind_close),
+    ('^remind_action/$', remind_action),
     ('^backup/$', backup),
 
 
