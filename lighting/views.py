@@ -31,6 +31,8 @@ def query(request, **kw):
 
     qs = Unit.objects.all()
 
+    rs_flag = False
+
     if submit == "search":
         keys = []
         conditions = []
@@ -41,6 +43,7 @@ def query(request, **kw):
         condition = conditions[i]
         value = values[i]
         if key and value:
+            rs_flag = True
             if condition == "==":
                 qs = qs.filter(**{str(key+"__icontains") : value})
             elif condition == "!=":
@@ -55,23 +58,37 @@ def query(request, **kw):
         value = ""
 
     if key and value:
+        rs_flag = True
         if condition == "==":
-            qs = qs.filter(**{str(key+"__icontains") : value})
-        elif condition == "!=":
-            qs = qs.exclude(**{key+"__icontains" : value})
+            qs = qs.filter(**{key: value})
+        elif condition == "=":
+            qs = qs.filter(**{key+"__icontains" : value})
         keys.append(key)
         conditions.append(condition)
         values.append(value)
 
+
+    time1 = request.REQUEST.get("time1")
+    time2 = request.REQUEST.get("time2")
     checkall = request.REQUEST.get("checkall")
     check_1 = request.REQUEST.get("check_1")
     check_2 = request.REQUEST.get("check_2")
     check_3 = request.REQUEST.get("check_3")
     check_4 = request.REQUEST.get("check_4")
+    if time1:
+        date1 = datetime.date(int(time1), 1, 1)
+    if time2:
+        date2 = datetime.date(int(time2), 12, 31)
     if not (check_1 or check_2 or check_3 or check_4):
         checkall = "on"
     rs = []
     for r in qs.all():
+        if time1:
+            if r.time < date1:
+                continue
+        if time2:
+            if r.time > date2:
+                continue
         flag = False
         if checkall:
             flag = True
@@ -85,6 +102,9 @@ def query(request, **kw):
             flag = True
         if flag:
             rs.append(r)
+
+    if not rs_flag:
+        rs = []
 
     if submit == "output":
         workBook = xlwt.Workbook()
@@ -321,9 +341,13 @@ def remind(request, **kw):
         if Remind.objects.filter(unit=unit):
             continue
         if unit.is_expiring or unit.is_expired:
-            Remind(unit=unit).save()
+            if Unit.objects.filter(name=unit.name).order_by("-validity")[0] == unit:
+                Remind(unit=unit).save()
     for remind in Remind.objects.all():
         if not (remind.unit.is_expiring or remind.unit.is_expired):
+            remind.delete()
+        unit = remind.unit 
+        if Unit.objects.filter(name=unit.name).order_by("-validity")[0] != unit:
             remind.delete()
     rs = Remind.objects.filter(deleted=False).order_by("unit__validity")
     user = request.user

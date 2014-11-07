@@ -8,11 +8,11 @@
         </div>
         <div class="pull-right save-options-box">
             {% if show_save_and_continue %}
-                <input type="submit" value="保存并继续编辑" name="_continue" {{ onclick_attrib }} class="btn btn-primary"/>
+                <input type="submit" value="保存并继续编辑" name="_continue" {{ onclick_attrib }} class="btn btn-primary save"/>
             {% endif %}
 
             {% if show_delete_link %}
-                <input type="submit" value="另存为" name="_saveasnew" {{ onclick_attrib }} class="btn"/>
+                <input type="submit" value="另存为" name="_saveasnew" {{ onclick_attrib }} class="btn save"/>
             {%endif%}
 
 
@@ -21,8 +21,9 @@
             {% endif %} -->
 
             {% if show_save %}
-                <input type="submit" value="保存" name="_save" {{ onclick_attrib }} class="btn"/>
+                <input type="submit" value="保存" name="_save" {{ onclick_attrib }} class="btn save"/>
             {% endif %}
         </div>
     </div>
 </div>
+
