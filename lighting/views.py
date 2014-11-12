@@ -249,7 +249,7 @@ def show_gps(request, **kw):
     unit = Unit.objects.get(id=id)
     gps = unit.gps
     gps = gps.encode("utf8")
-    gps = gps.replace("：", ":").replace("，", ",").replace("，", ",").replace("'", "°").replace('"', "°")
+    gps = gps.replace("：", ":").replace("，", ",").replace("'", "°").replace('"', "°")
     lon, lat = gps.strip().split(",")
     lon = lon.strip().split(":")[-1]
     lat = lat.strip().split(":")[-1]

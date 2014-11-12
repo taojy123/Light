@@ -301,6 +301,9 @@ var DateTimeShortcuts = {
        DateTimeShortcuts.calendarInputs[num].value = d.strftime(get_format('DATE_INPUT_FORMATS')[0]);
        DateTimeShortcuts.calendarInputs[num].focus();
        DateTimeShortcuts.dismissCalendar(num);
+       if(num==0){
+           $("#id_time").keyup(); // for custom
+       }
     },
     cancelEventPropagation: function(e) {
         if (!e) e = window.event;

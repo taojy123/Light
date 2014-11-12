@@ -60,7 +60,7 @@ def delete_selected(modeladmin, request, queryset):
     if perms_needed or protected:
         title = _("Cannot delete %(name)s") % {"name": objects_name}
     else:
-        title = _("Are you sure?")
+        title = u'\u662f\u5426\u786e\u5b9a?' #_("Are you sure?")
 
     context = {
         "title": title,

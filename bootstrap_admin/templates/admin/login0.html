@@ -22,14 +22,14 @@
 {% block content %}
 <div id="content-main">
     <div class="row-fluid">
-        <div class="well span6 well-wrapper-form" style="background: url(/static/images/b2.jpg); width:750px; height:500px;">
-            <!-- <img class="img-circle logo-admin" src="{% static "admin/img/logo-140x140.png" %}" alt="{{ site.name }}"> -->
+        <div class="well span6 well-wrapper-form">
+            <img class="img-circle logo-admin" src="{% static "admin/img/logo-140x140.png" %}" alt="{{ site.name }}">
             <form class="bs-docs-example form-inline" id="login-form" action="{{ app_path }}" method="post">
                 {% csrf_token %}
                 <fieldset>
-                    <h1 style="color:green; font-size:26px;font-weight: bold;">
+                    <legend>
                         欢迎使用潮州市防雷档案管理系统
-                    </h1>
+                    </legend>
                     {% if form.errors and not form.non_field_errors and not form.this_is_the_login_form.errors %}
                         <p class="errornote alert alert-error fade in">
                             <button data-dismiss="alert" class="close" type="button">×</button>
@@ -44,31 +44,15 @@
                             </p>
                         {% endfor %}
                     {% endif %}
-                    <p style="color:blue;font-size:20px;margin-left:150px;margin-top:50px">请输入用户名和密码</p>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div class="control-group {% if form.username.errors %}error{% endif %}" style="color:blue;font-size:20px;margin-left:200px">
-                        用户名
+                    <div class="control-group {% if form.username.errors %}error{% endif %}">
                         <input type="text" placeholder="{{ form.username.label }}" class="span4" name="{{ form.username.html_name }}" id="{{ form.username.html_name }}" class=" focused" value="{% firstof form.username.value "" %}">
                     </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div class="control-group {% if form.password.errors %}error{% endif %}" style="color:blue;font-size:20px;margin-left:200px">
-                        密&nbsp;&nbsp;&nbsp;码
+                    <div class="control-group {% if form.password.errors %}error{% endif %}">
                         <input type="password" placeholder="{% trans 'Password' %}" class="span4" name="{{ form.password.html_name }}" id="{{ form.password.html_name }}" value="">
                     </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
                     <input type="hidden" name="this_is_the_login_form" value="1" />
                     <input type="hidden" name="next" value="{{ next }}" />
-                    <input  class="btn" style="width:100px;" type="submit" value="确定">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    
-                    <button class="btn" style="width:100px;" onclick="top.location.href='/';return false;">取消</button>
+                    <input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}">
                 </fieldset>
             </form>
             {% url 'admin_password_reset' as password_reset_url %}
@@ -79,7 +63,7 @@
                     </a>
                 </p>
             {% endif %}
-
+            
         </div>
     </div>
 </div>

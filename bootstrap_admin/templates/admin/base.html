@@ -185,24 +185,6 @@ color: white;
     <script type="text/javascript" src="{% static "admin/js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="{% static "admin/js/commons.js" %}"></script>
 
-    <script>
-        $(function(){
-            $(".save").click(function(){
-                var time = $("#id_time").val()
-                var validity = $("#id_validity").val()
-                var approve_time = $("#id_approve_time").val()
-                if(time > validity){
-                    alert("有效期不能早于检测日期")
-                    return false
-                }
-                if(time > approve_time){
-                    alert("批准日期不能早于检测日期")
-                    return false
-                }
-            })
-
-        })
-    </script>
 
 {% endblock js_footer_commons %}
 

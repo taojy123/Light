@@ -60,6 +60,11 @@ class Unit(models.Model):
     approve_person = models.CharField(max_length=255, verbose_name="批准人")
     approve_time = models.DateField(verbose_name="批准日期")        #可选日期
 
+    rnum1 = models.CharField(max_length=255, blank=True , null=True)
+    rnum2 = models.CharField(max_length=255, blank=True , null=True)
+    rnum3 = models.CharField(max_length=255, blank=True , null=True)
+    rnum4 = models.CharField(max_length=255, blank=True , null=True)
+
 
     class Meta:
         verbose_name = "单位信息"
@@ -69,19 +74,15 @@ class Unit(models.Model):
         return self.anum + " " + self.name
 
     def save(self, *args, **kw):
-        if not self.validity:
-            year = self.time.year
-            month = self.time.month
-            day = self.time.day
-            if self.is_1 or self.is_2:
-                if month > 6:
-                    month -= 6
-                    year += 1
-                else:
-                    month += 6
-            if self.is_3 or self.is_4:
-                year += 1
-            self.validity = datetime.date(year=year, month=month, day=day)
+        r = re.findall(ur"\[(\d+)\](.+)-(\d+)-(.+)\u53f7", self.rnum)
+        rnum1 = r[0][0]
+        rnum2 = r[0][1]
+        rnum3 = r[0][2]
+        rnum4 = r[0][3]
+        self.rnum1 = rnum1
+        self.rnum2 = rnum2
+        self.rnum3 = rnum3
+        self.rnum4 = rnum4
         return super(Unit, self).save(*args, **kw)
 
     @property
