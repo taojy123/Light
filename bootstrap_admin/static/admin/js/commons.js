@@ -5,4 +5,4 @@
     $.fn.isBefore= function(sel){
         return this.nextAll(sel).length !== 0;
     }
-})(django.jQuery);
+})(window.jQuery);

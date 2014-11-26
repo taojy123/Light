@@ -11,6 +11,13 @@
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms-and-widgets.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/change-form.css" %}" />
+    <style type="text/css">
+
+     .field-rnum1, .field-rnum2, .field-rnum3, .field-rnum4{
+        display: none;
+     }
+
+     </style>
 {% endblock %}
 
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}

@@ -14,7 +14,7 @@
     </form>
     <script type="text/javascript">
         {% if show_result_count %}
-            (function ($) {
+           (function ($) {
                 $(document).ready(function(){
                     search_field = $(".btn-search-options");
                     search_field.popover(
@@ -27,7 +27,7 @@
                     );
                     search_field.focus();
                 });
-            })(django.jQuery);
+           })(window.jQuery);
         {% else %}
             document.getElementById("searchbar").focus();
         {% endif %}

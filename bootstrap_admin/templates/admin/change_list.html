@@ -28,7 +28,7 @@
     $(document).ready(function($) {
         $("tr input.action-select").actions();
     });
-})(django.jQuery);
+})(window.jQuery);
 </script>
 {% endif %}{% endif %}
 {% endblock %}
@@ -169,7 +169,7 @@
 {#    if ($(".active").html() == "单位信息"){#}
 {#        top.location.href = "/query/";#}
 {#    }#}
-    (function ($) {
+   (function ($) {
         fix_positions_on_menu = function (){
           width = Math.max( $(window).innerWidth(), window.innerWidth);
           if(width < '768'){
@@ -214,6 +214,6 @@
             fix_positions_on_menu();
         });
         $(".alert-success").hide()
-    })(django.jQuery);
+   })(window.jQuery);
     </script>
 {% endblock js_footer %}

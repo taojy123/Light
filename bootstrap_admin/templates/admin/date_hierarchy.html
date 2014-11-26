@@ -4,11 +4,11 @@
         <a tabindex="-1" href="#" class='link-date-hierarchy'>{% trans 'Date Hierarchy' %}</a>
         {% if back %}
             <script type="text/javascript">
-                (function ($) {
+               (function ($) {
                     $(document).ready(function(){
                         $('.link-date-hierarchy').hide();
                     });
-                })(django.jQuery);
+               })(window.jQuery);
             </script>
             <li class="date-back">
                 <a href="{{ back.link }}">&lsaquo; {{ back.title }}</a>

@@ -87,7 +87,7 @@
 
 {% block js_footer %}
     <script type="text/javascript">
-    (function ($) {
+   (function ($) {
         $(document).ready(function(){
             {% if not form.this_is_the_login_form.errors %}
                 {% if form.username.errors %}
@@ -113,6 +113,6 @@
                 {% endif %}
             {% endif %}
         });
-    })(django.jQuery);
+   })(window.jQuery);
     </script>
 {% endblock js_footer %}
