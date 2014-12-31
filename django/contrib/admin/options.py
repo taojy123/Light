@@ -932,6 +932,7 @@ class ModelAdmin(BaseModelAdmin):
 
         elif "_continue" in request.POST:
             msg = _('The %(name)s "%(obj)s" was added successfully. You may edit it again below.') % msg_dict
+            msg = _('OK!')
             self.message_user(request, msg, messages.SUCCESS)
             if post_url_continue is None:
                 post_url_continue = reverse('admin:%s_%s_change' %
@@ -964,6 +965,7 @@ class ModelAdmin(BaseModelAdmin):
         msg_dict = {'name': force_text(opts.verbose_name), 'obj': force_text(obj)}
         if "_continue" in request.POST:
             msg = _('The %(name)s "%(obj)s" was changed successfully. You may edit it again below.') % msg_dict
+            msg = _('OK!')
             self.message_user(request, msg, messages.SUCCESS)
             redirect_url = request.path
             redirect_url = add_preserved_filters({'preserved_filters': preserved_filters, 'opts': opts}, redirect_url)
@@ -971,6 +973,7 @@ class ModelAdmin(BaseModelAdmin):
 
         elif "_saveasnew" in request.POST:
             msg = _('The %(name)s "%(obj)s" was added successfully. You may edit it again below.') % msg_dict
+            msg = _('OK!')
             self.message_user(request, msg, messages.SUCCESS)
             redirect_url = reverse('admin:%s_%s_change' %
                                    (opts.app_label, opts.model_name),

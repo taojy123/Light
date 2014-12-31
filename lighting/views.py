@@ -272,6 +272,9 @@ def show_gps(request, **kw):
     if len(lats) > 3:
         lat += float(lats[2]) / 3600
 
+    lon += 0.011
+    lat += 0.003
+
     return render_to_response('show_gps.html', locals())
 
 

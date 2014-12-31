@@ -119,9 +119,7 @@
             if(!$("#id_rnum").val()){
 
                 $("#id_rnum").after('粤雷检[ <input class="rnum vTextField span2" id="rnum1" type="text"> ] <input class="rnum vTextField span1" id="rnum2" type="text"> - <input class="rnum vTextField span1" id="rnum3" type="text"> - <input class="rnum vTextField span2" id="rnum4" type="text"> 号')
-                
                 $("#id_rnum").hide()
-                
                 $(".rnum").keyup(function(){
                     var rnum1 = $("#rnum1").val()
                     var rnum2 = $("#rnum2").val()
@@ -135,6 +133,21 @@
             $(".field-rnum2").hide()
             $(".field-rnum3").hide()
             $(".field-rnum4").hide()
+
+
+
+            if(!$("#id_gps").val()){
+
+                $("#id_gps").after('经度:<input class="gps vTextField span2" id="gps1" type="text">   纬度:<input class="gps vTextField span2" id="gps2" type="text"> <span>参考格式： 经度:12°34\'56.78",纬度:123°45\'67.89"</span>')
+                $("#id_gps").hide()
+                $(".gps").keyup(function(){
+                    var gps1 = $("#gps1").val()
+                    var gps2 = $("#gps2").val()
+                    $("#id_gps").val('经度:' + gps1 + ',纬度：' + gps2)
+                })
+            }
+
+
 
             $("#id_time").keyup(function(){
                 var time = $("#id_time").val()

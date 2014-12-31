@@ -2,6 +2,16 @@
 {% load i18n admin_static %}
 
 
+{% block extrahead %}
+    <style type="text/css">
+        .controls{
+            margin-top: 4px;
+        }
+        .control-label label{
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
 
 {% block main_content %}
 
@@ -17,7 +27,8 @@
                     <label class="required" >档案号:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.anum }}" disabled >
+                    <label>{{ r.anum }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.anum }}" disabled  >#}
                 </div>
             </div>
 
@@ -27,7 +38,8 @@
                     <label class="required" >检测报告编号:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.rnum }}" disabled >
+                    <label>{{ r.rnum }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.rnum }}" disabled >#}
                 </div>
             </div>
 
@@ -37,7 +49,8 @@
                     <label class="required" >单位名称:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.name }}" disabled >
+                    <label>{{ r.name }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.name }}" disabled >#}
                 </div>
             </div>
 
@@ -47,7 +60,8 @@
                     <label class="required" >单位地址:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.address }}" disabled >
+                    <label>{{ r.address }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.address }}" disabled >#}
                 </div>
             </div>
 
@@ -57,7 +71,8 @@
                     <label class="required" >项目名称:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.project_name }}" disabled >
+                    <label>{{ r.project_name }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.project_name }}" disabled >#}
                 </div>
             </div>
 
@@ -67,7 +82,8 @@
                     <label class="required" >项目地址:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.project_address }}" disabled >
+                    <label>{{ r.project_address }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.project_address }}" disabled >#}
                 </div>
             </div>
 
@@ -77,7 +93,8 @@
                     <label class="required" >GPS定位信息:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.gps }}" disabled >
+                    <label>{{ r.gps }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.gps }}" disabled >#}
                 </div>
             </div>
 
@@ -87,7 +104,8 @@
                     <label class="required" >检测时间:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.time|date:"Y-m-d" }}" disabled >
+                    <label>{{ r.time|date:"Y-m-d" }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.time|date:"Y-m-d" }}" disabled >#}
                 </div>
             </div>
 
@@ -97,7 +115,8 @@
                     <label class="required" >联系部门:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.contact_department }}" disabled >
+                    <label>{{ r.contact_department }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.contact_department }}" disabled >#}
                 </div>
             </div>
 
@@ -107,7 +126,8 @@
                     <label class="required" >联系人:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.contact_person }}" disabled >
+                    <label>{{ r.contact_person }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.contact_person }}" disabled >#}
                 </div>
             </div>
 
@@ -117,7 +137,8 @@
                     <label class="required" >联系电话:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.contact_phone }}" disabled >
+                    <label>{{ r.contact_phone }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.contact_phone }}" disabled >#}
                 </div>
             </div>
 
@@ -127,7 +148,8 @@
                     <label class="required" >受检建（构）筑物名称及接地电阻:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.buildings }}" disabled >
+                    <label>{{ r.buildings }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.buildings }}" disabled >#}
                 </div>
             </div>
 
@@ -137,7 +159,8 @@
                     <label class="required" >防雷类别:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.category }}" disabled >
+                    <label>{{ r.category }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.category }}" disabled >#}
                 </div>
             </div>
 
@@ -147,7 +170,8 @@
                     <label class="required" >检测依据:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.basis }}" disabled >
+                    <label>{{ r.basis }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.basis }}" disabled >#}
                 </div>
             </div>
 
@@ -157,7 +181,8 @@
                     <label class="required" >天气状况:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.weather }}" disabled >
+                    <label>{{ r.weather }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.weather }}" disabled >#}
                 </div>
             </div>
 
@@ -167,7 +192,8 @@
                     <label class="required" >检测仪器及编号:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.instrument_num }}" disabled >
+                    <label>{{ r.instrument_num }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.instrument_num }}" disabled >#}
                 </div>
             </div>
 
@@ -177,7 +203,8 @@
                     <label class="required" >检测结论:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.conclusion }}" disabled >
+                    <label>{{ r.conclusion }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.conclusion }}" disabled >#}
                 </div>
             </div>
 
@@ -187,7 +214,8 @@
                     <label class="required" >有效期:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.validity|date:"Y-m-d" }}" disabled >
+                    <label>{{ r.validity|date:"Y-m-d" }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.validity|date:"Y-m-d" }}" disabled >#}
                 </div>
             </div>
 
@@ -197,7 +225,8 @@
                     <label class="required" >编制员:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.write_person }}" disabled >
+                    <label>{{ r.write_person }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.write_person }}" disabled >#}
                 </div>
             </div>
 
@@ -207,7 +236,8 @@
                     <label class="required" >检测员:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.test_person }}" disabled >
+                    <label>{{ r.test_person }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.test_person }}" disabled >#}
                 </div>
             </div>
 
@@ -217,7 +247,8 @@
                     <label class="required" >审核员:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.check_person }}" disabled >
+                    <label>{{ r.check_person }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.check_person }}" disabled >#}
                 </div>
             </div>
 
@@ -227,7 +258,8 @@
                     <label class="required" >计费员:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.bill_person }}" disabled >
+                    <label>{{ r.bill_person }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.bill_person }}" disabled >#}
                 </div>
             </div>
 
@@ -237,7 +269,8 @@
                     <label class="required" >计费复核:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.bill_check }}" disabled >
+                    <label>{{ r.bill_check }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.bill_check }}" disabled >#}
                 </div>
             </div>
 
@@ -247,7 +280,8 @@
                     <label class="required" >计费金额:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.amount }}" disabled >
+                    <label>{{ r.amount }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.amount }}" disabled >#}
                 </div>
             </div>
 
@@ -257,7 +291,8 @@
                     <label class="required" >批准人:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.approve_person }}" disabled >
+                    <label>{{ r.approve_person }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.approve_person }}" disabled >#}
                 </div>
             </div>
 
@@ -267,7 +302,8 @@
                     <label class="required" >批准日期:</label>
                 </div>
                 <div class="controls">
-                    <input class="vTextField span8" type="text"  value="{{ r.approve_time|date:"Y-m-d" }}" disabled >
+                    <label>{{ r.approve_time|date:"Y-m-d" }}</label>
+{#                    <input class="vTextField span8" type="text"  value="{{ r.approve_time|date:"Y-m-d" }}" disabled >#}
                 </div>
             </div>
 

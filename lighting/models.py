@@ -56,7 +56,11 @@ class Unit(models.Model):
     check_person = models.CharField(max_length=255, verbose_name="审核员")
     bill_person = models.CharField(max_length=255, verbose_name="计费员")
     bill_check = models.CharField(max_length=255, verbose_name="计费复核")
-    amount = models.CharField(max_length=255, verbose_name="计费金额")
+    amount = models.CharField(max_length=255, verbose_name="计费金额",
+        validators=[
+            validators.RegexValidator(re.compile('^[1234567890,\.]+$'), '只能输入数字', 'invalid')
+        ]
+    )
     approve_person = models.CharField(max_length=255, verbose_name="批准人")
     approve_time = models.DateField(verbose_name="批准日期")        #可选日期
 
