@@ -34,24 +34,23 @@
         {% for r in rs %}
             <tr>
                 <td><input type="checkbox" name="ids" value="{{ r.id }}" /></td>
-                <td><a href="/unit_detail?id={{ r.unit.id }}">{{ r.unit.anum }}</a></td>
 
                 {% if r.is_show %}
-                    
-                    <td style="color:blue">{{ r.unit.rnum }}</td>
-                    <td style="color:blue">{{ r.unit.name }}</td>
-                    <td style="color:blue">{{ r.unit.address }}</td>
+                    <td><a style="color:#08c;" href="/unit_detail?id={{ r.unit.id }}">{{ r.unit.anum }}</a></td>
+                    <td style="color:#08c;">{{ r.unit.rnum }}</td>
+                    <td style="color:#08c;">{{ r.unit.name }}</td>
+                    <td style="color:#08c;">{{ r.unit.address }}</td>
                 {% else %}
-                    
+                    <td><a style="color:orange" href="/unit_detail?id={{ r.unit.id }}">{{ r.unit.anum }}</a></td>
                     <td style="color:orange">{{ r.unit.rnum }}</td>
                     <td style="color:orange">{{ r.unit.name }}</td>
                     <td style="color:orange">{{ r.unit.address }}</td>
                 {% endif %}
                 
-                <td {% if r.unit.is_expired %}style="color: red"{% else %}style="color: blue"{% endif %}>{{ r.unit.validity|date:"Y-m-d" }}</td>
+                <td {% if r.unit.is_expired %}style="color: red"{% else %}style="color: #08c;"{% endif %}>{{ r.unit.validity|date:"Y-m-d" }}</td>
                 <td>
                     {% if r.is_show %}
-                        <span style="color:blue">提醒开启中</span>
+                        <span style="color:#08c;">提醒开启中</span>
                     {% else %}
                         <span style="color:orange">提醒已关闭</span>
                     {% endif %}
@@ -86,15 +85,7 @@
         } 
         });
 
-        if($.cookie("show_filter") == "true"){
-            $("#filter").show()
-        }
 
-        $("#show_filter").click(function(){
-            $("#filter").toggle()
-            var show_filter = $("#filter").is(":visible")
-            $.cookie("show_filter", show_filter)
-        });
 
         $(function(){
 

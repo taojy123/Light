@@ -44,18 +44,18 @@
                             </p>
                         {% endfor %}
                     {% endif %}
-                    <p style="color:blue;font-size:20px;margin-left:150px;margin-top:50px">请输入用户名和密码</p>
+                    <p style="color:#08c;font-size:20px;margin-left:150px;margin-top:50px">请输入用户名和密码</p>
                     <br/>
                     <br/>
                     <br/>
-                    <div class="control-group {% if form.username.errors %}error{% endif %}" style="color:blue;font-size:20px;margin-left:200px">
+                    <div class="control-group {% if form.username.errors %}error{% endif %}" style="color:#08c;font-size:20px;margin-left:200px">
                         用户名
                         <input type="text" placeholder="{{ form.username.label }}" class="span4" name="{{ form.username.html_name }}" id="{{ form.username.html_name }}" class=" focused" value="{% firstof form.username.value "" %}">
                     </div>
                     <br/>
                     <br/>
                     <br/>
-                    <div class="control-group {% if form.password.errors %}error{% endif %}" style="color:blue;font-size:20px;margin-left:200px">
+                    <div class="control-group {% if form.password.errors %}error{% endif %}" style="color:#08c;font-size:20px;margin-left:200px">
                         密&nbsp;&nbsp;&nbsp;码
                         <input type="password" placeholder="{% trans 'Password' %}" class="span4" name="{{ form.password.html_name }}" id="{{ form.password.html_name }}" value="">
                     </div>

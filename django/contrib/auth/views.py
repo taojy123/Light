@@ -45,7 +45,21 @@ def login(request, template_name='registration/login.html',
 
             rp = HttpResponseRedirect(redirect_to)
 
-            from lighting.models import Remind
+            from lighting.models import Remind, Unit
+
+            for unit in Unit.objects.all():
+                if Remind.objects.filter(unit=unit):
+                    continue
+                if unit.is_expiring or unit.is_expired:
+                    if Unit.objects.filter(name=unit.name).order_by("-validity")[0] == unit:
+                        Remind(unit=unit).save()
+            for remind in Remind.objects.all():
+                if not (remind.unit.is_expiring or remind.unit.is_expired):
+                    remind.delete()
+                unit = remind.unit
+                if Unit.objects.filter(name=unit.name).order_by("-validity")[0] != unit:
+                    remind.delete()
+
             if Remind.objects.filter(is_show=True, deleted=False):
                 rp.set_cookie("remind", "true")
             else:

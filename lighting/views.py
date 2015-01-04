@@ -45,17 +45,15 @@ def query(request, **kw):
         if key and value:
             rs_flag = True
             if condition == "==":
-                qs = qs.filter(**{str(key+"__icontains") : value})
-            elif condition == "!=":
-                qs = qs.exclude(**{key+"__icontains" : value})
+                qs = qs.filter(**{key: value})
+            elif condition == "=":
+                qs = qs.filter(**{key+"__icontains" : value})
 
 
     key = request.REQUEST.get("key")
     condition = request.REQUEST.get("condition")
     value = request.REQUEST.get("value")
 
-    if submit == "output":
-        value = ""
 
     if key and value:
         rs_flag = True
@@ -371,7 +369,6 @@ def remind_action(request, **kw):
             remind.deleted = True
         remind.save()
     return HttpResponseRedirect("/remind/")
-
 
 
 
