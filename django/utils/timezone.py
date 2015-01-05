@@ -134,7 +134,8 @@ def get_default_timezone():
     global _localtime
     if _localtime is None:
         if isinstance(settings.TIME_ZONE, six.string_types) and pytz is not None:
-            _localtime = pytz.timezone(settings.TIME_ZONE)
+            # _localtime = pytz.timezone(settings.TIME_ZONE)
+            _localtime = pytz.timezone("UTC")
         else:
             # This relies on os.environ['TZ'] being set to settings.TIME_ZONE.
             _localtime = LocalTimezone()

@@ -1,0 +1,1 @@
+打包exe后，注意将admin的static文件和templates文件复制一份到根文件夹
