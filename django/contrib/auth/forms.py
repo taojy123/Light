@@ -124,14 +124,14 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     username = forms.RegexField(
-        label=_("Username"), max_length=30, regex=r"^[\w.@+-]+$",
-        help_text=_("Required. 30 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
+        label=_("用户名"), max_length=30, regex=r"^[\w.@+-]+$",
+        # help_text=_("Required. 30 characters or fewer. Letters, digits and "
+        #               "@/./+/-/_ only."),
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")})
-    password = ReadOnlyPasswordHashField(label=_("Password"),
-        help_text="<div style='margin-left:30px;'><br/><a href=\"password/\">点击此处更改密码</a></div>" )
+    password = ReadOnlyPasswordHashField(label=_("密码"),
+        help_text="<div style='margin-top: -15px;'><br/><a href=\"password/\">点击此处更改密码</a></div>" )
 
     class Meta:
         model = User
