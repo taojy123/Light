@@ -360,11 +360,11 @@ def remind_action(request, **kw):
     action = request.REQUEST.get("action")
     for id in ids:
         remind = Remind.objects.get(id=id)
-        if action == "open":
+        if action == u"打开":
             remind.is_show = True
-        elif action == "close":
+        elif action == u"关闭":
             remind.is_show = False
-        elif action == "delete":
+        elif action == u"删除":
             remind.is_show = False
             remind.deleted = True
         remind.save()
